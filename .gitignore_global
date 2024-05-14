@@ -1,0 +1,12 @@
+.vscode
+.graphqlrc.yml
+src/addOrg.ts
+.style.yapf
+.devcontainer
+.devcontainer/*
+.DS_Store
+pyrightconfig.json
+.github/dependabot.yml
+docker-compose.debug.yml
+**/jsconfig.json
+

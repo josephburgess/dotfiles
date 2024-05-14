@@ -1,0 +1,23 @@
+colors:
+    primary:
+        background: '#0B0D0F'
+        foreground: '#F8F8F2'
+        bright_foreground: '#FFFFFF'
+window:
+    opacity: 0.3
+    decorations: none
+font:
+    size: 14.0
+    normal:
+        family: JetBrains Mono
+        style: Regular
+
+    bold:
+        family: JetBrains Mono
+        style: Bold
+
+    italic:
+        family: JetBrains Mono
+        style: Italic
+key_bindings:
+    - { key: Return, mods: Command, action: ToggleSimpleFullscreen }

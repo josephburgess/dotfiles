@@ -1,0 +1,9 @@
+[user]
+	name = josephburgess
+	email = josephburgess@gmail.com
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = /Users/josephburgess/.gitignore_global

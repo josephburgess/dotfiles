@@ -1,0 +1,131 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
+  "name": "Dracula Pro",
+  "author": "Joe Burgess",
+  "themes": [
+    {
+      "name": "Dracula Pro (Van Helsing)",
+      "appearance": "dark",
+      "style": {
+        "border": "#9580FF",
+        "border.variant": "#9580FF",
+        "border.focused": "#708CA9",
+        "border.selected": "#9580FF",
+        "border.transparent": "#9580FF",
+        "border.disabled": "#9580FF",
+        "elevated_surface.background": "#263340",
+        "surface.background": "#0B0D0F",
+        "background": "#0B0D0F",
+        "element.background": "#414D58",
+        "element.hover": "#414D5875",
+        "element.selected": "#414D58",
+        "drop_target.background": "#414D58",
+        "ghost_element.hover": "#414D5875",
+        "ghost_element.selected": "#414D58",
+        "text": "#F8F8F2",
+        "text.muted": "#708CA9",
+        "status_bar.background": "#0A0D10",
+        "title_bar.background": "#131A20",
+        "toolbar.background": "#0B0D0F",
+        "tab_bar.background": "#0A0D10",
+        "tab.inactive_background": "#131A20",
+        "tab.active_background": "#0B0D0F",
+        "panel.background": "#0B0D0F",
+        "scrollbar.track.background": "#0B0D0F",
+        "scrollbar.track.border": "#0A0D10",
+        "editor.foreground": "#F8F8F2",
+        "editor.background": "#0B0D0F",
+        "editor.gutter.background": "#0B0D0F",
+        "editor.line_number": "#708CA9",
+        "editor.active_line_number": "#F8F8F2",
+        "editor.wrap_guide": "#9580FF",
+        "editor.active_wrap_guide": "#9580FF",
+        "terminal.background": "#0B0D0F",
+        "terminal.ansi.black": "#21222C",
+        "terminal.ansi.bright_black": "#708CA9",
+        "terminal.ansi.red": "#FF9580",
+        "terminal.ansi.bright_red": "#FFBFB3",
+        "terminal.ansi.green": "#8AFF80",
+        "terminal.ansi.bright_green": "#B9FFB3",
+        "terminal.ansi.yellow": "#FFFF80",
+        "terminal.ansi.bright_yellow": "#FFFFB3",
+        "terminal.ansi.blue": "#9580FF",
+        "terminal.ansi.bright_blue": "#BFB3FF",
+        "terminal.ansi.magenta": "#FF80BF",
+        "terminal.ansi.bright_magenta": "#FFB3D9",
+        "terminal.ansi.cyan": "#80FFEA",
+        "terminal.ansi.bright_cyan": "#B3FFF2",
+        "terminal.ansi.white": "#F8F8F2",
+        "terminal.ansi.bright_white": "#FFFFFF",
+        "error": "#FF9580",
+        "warning": "#80FFEA",
+        "modified": "#80FFEA80",
+        "syntax": {
+          "attribute": {
+            "color": "#8AFF80",
+            "font_style": "italic"
+          },
+          "comment": {
+            "color": "#708CA9"
+          },
+          "constant": {
+            "color": "#9580FF"
+          },
+          "constructor": {
+            "color": "#FF80BF"
+          },
+          "emphasis": {
+            "color": "#FFFF80",
+            "font_style": "italic"
+          },
+          "function": {
+            "color": "#8AFF80"
+          },
+          "keyword": {
+            "color": "#FF80BF"
+          },
+          "link_text": {
+            "color": "#80FFEA"
+          },
+          "number": {
+            "color": "#9580FF"
+          },
+          "string": {
+            "color": "#FFFF80"
+          },
+          "tag": {
+            "color": "#FF80BF"
+          },
+          "type": {
+            "color": "#80FFEA",
+            "font_style": "italic"
+          },
+          "variable": {
+            "color": "#F8F8F2"
+          },
+          "variable.special": {
+            "color": "#9580FF",
+            "font_style": "italic"
+          },
+          "variable.parameter": {
+            "color": "#FFCA80",
+            "font_style": "italic"
+          },
+          "keyword.other.this": {
+            "color": "#9580FF",
+            "font_style": "italic"
+          },
+          "meta.brace.round": {
+            "color": "#F8F8F2"
+          },
+          "meta.brace.square": {
+            "color": "#F8F8F2"
+          },
+          "meta.brace.curly": {
+            "color": "#F8F8F2"
+          }
+        }
+      }
+    }
+  ]
+}

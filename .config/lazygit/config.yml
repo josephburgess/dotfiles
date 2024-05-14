@@ -1,0 +1,12 @@
+gui:
+  showBottomLine: false
+  nerdFontsVersion: "3"
+quitOnTopLevelReturn: true
+disableStartupPopups: true
+promptToReturnFromSubprocess: false
+git:
+  paging:
+    colorArg: always
+    #externalDiffCommand: difft --color=always --tab-width 2
+os:
+  editPreset: nvim
