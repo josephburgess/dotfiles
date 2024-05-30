@@ -27,13 +27,13 @@ writeToProfile("karabiner-config", [
   // Supported alias: https://github.com/evan-liu/karabiner.ts/blob/main/src/utils/key-alias.ts
 
   layer("/", "symbol-mode").manipulators([
-    //     / + [ 1    2    3    4    5 ] =>
-    withMapper(["⌘", "⌥", "⌃", "⇧", "⇪"])((k, i) =>
-      map((i + 1) as NumberKeyValue).toPaste(k)
-    ),
-    withMapper(["←", "→", "↑", "↓", "␣", "⏎", "⇥", "⎋", "⌫", "⌦", "⇪"])((k) =>
-      map(k).toPaste(k)
-    ),
+    // //     / + [ 1    2    3    4    5 ] =>
+    // withMapper(["⌘", "⌥", "⌃", "⇧", "⇪"])((k, i) =>
+    //   map((i + 1) as NumberKeyValue).toPaste(k)
+    // ),
+    // withMapper(["←", "→", "↑", "↓", "␣", "⏎", "⇥", "⎋", "⌫", "⌦", "⇪"])((k) =>
+    //   map(k).toPaste(k)
+    // ),
   ]),
 
   rule("Caps Lock -> Hyper").manipulators([
@@ -49,6 +49,7 @@ writeToProfile("karabiner-config", [
 
   hyperLayer("o", "app-launch-layer").manipulators([
     { f: toApp("Finder") },
+    { b: toApp("Firefox Developer Edition") },
     { c: toApp("Google Chrome") },
     { s: toApp("Slack") },
     { t: toApp("iTerm") },
