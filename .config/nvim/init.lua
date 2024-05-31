@@ -47,34 +47,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = 
 vim.keymap.set("n", "<S-Enter>", "O<Esc>", { noremap = true, silent = true, desc = "Insert newline above" })
 vim.keymap.set("n", "<CR>", "o<Esc>", { noremap = true, silent = true, desc = "Insert newline below" })
 vim.keymap.set("n", "<leader>p", '"_dP', { noremap = true, silent = true, desc = "Paste without yanking" })
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<M-,>", "<Cmd>BufferPrevious<CR>", opts)
-vim.keymap.set("n", "<M-.>", "<Cmd>BufferNext<CR>", opts)
--- Re-order to previous/next
-vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
-vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
--- Goto buffer in position...
-vim.keymap.set("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
--- Pin/unpin buffer
-vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
--- Close buffer
-vim.keymap.set("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
--- Wipeout buffer
---                 :BufferWipeout
--- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
-vim.keymap.set("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
-vim.keymap.set(
-	"n",
-	"<F5>",
-	"<cmd>setlocal modifiable!<CR>",
-	{ noremap = true, silent = true, desc = "Toggle modifiable" }
-)
-vim.keymap.set("i", "<A-BS>", "<Esc>cvb", {})
+
+vim.keymap.set("i", "<M-BS>", "<Esc>cvb", {})
+
+vim.wo.relativenumber = true
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -83,7 +59,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-vim.wo.relativenumber = true
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -284,9 +260,10 @@ require("lazy").setup({
 						pylsp = {
 							plugins = {
 								pycodestyle = {
-									ignore = { "W391" },
+									ignore = { "W391", "BLK100", "E1", "E2", "E3", "E5", "I", "W291" },
 									maxLineLength = 120,
 								},
+								rope_autoimport = { enabled = true },
 							},
 						},
 					},
@@ -327,7 +304,7 @@ require("lazy").setup({
 		opts = {
 			notify_on_error = false,
 			format_on_save = function(bufnr)
-				local disable_filetypes = { c = true, cpp = true, python = true }
+				local disable_filetypes = { c = true, cpp = true, py = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -342,24 +319,6 @@ require("lazy").setup({
 				javascript = { { "prettierd", "prettier" } },
 			},
 		},
-	},
-
-	{
-		"romgrk/barbar.nvim",
-		dependencies = {
-			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
-		},
-		init = function()
-			vim.g.barbar_auto_setup = false
-		end,
-		opts = {
-			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-			-- animation = true,
-			-- insert_at_start = true,
-			-- …etc.
-		},
-		version = "^1.0.0", -- optional: only update when a new 1.x version is released
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -425,15 +384,17 @@ require("lazy").setup({
 	},
 
 	{
-		"folke/tokyonight.nvim",
+		"projekt0n/github-nvim-theme",
+		lazy = false,
 		priority = 1000,
-		init = function()
-			vim.cmd.colorscheme("tokyonight-night")
+		config = function()
+			require("github-theme").setup({
+				-- ...
+			})
 
-			vim.cmd.hi("Comment gui=none")
+			vim.cmd("colorscheme github_dark_high_contrast")
 		end,
 	},
-
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
@@ -458,11 +419,20 @@ require("lazy").setup({
 		"echasnovski/mini.nvim",
 		config = function()
 			require("mini.ai").setup({ n_lines = 500 })
+			require("mini.surround").setup({
+				mappings = {
+					add = "sa",
+					delete = "sd",
+					find = "sf",
+					find_left = "sF",
+					highlight = "sh",
+					replace = "sr",
+					update_n_lines = "sn",
 
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
+					suffix_last = "l",
+					suffix_next = "n",
+				},
+			})
 		end,
 	},
 	{
@@ -503,7 +473,7 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ -- Highlight, edit, and navigate code
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
@@ -596,4 +566,3 @@ end, { remap = true })
 vim.keymap.set("", "T", function()
 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, hint_offset = 1 })
 end, { remap = true })
--- vim: ts=2 sts=2 sw=2 et
