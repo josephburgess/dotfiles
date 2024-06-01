@@ -33,9 +33,9 @@ alias loggraph="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yell
 alias g="lazygit"
 alias mkdir='mkdir -p'
 alias rm='rm -i'
-alias zshconfig="code ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias dcr="docker-compose run --rm"
 alias awsume=". awsume"
 alias k="kubectl"
@@ -51,6 +51,8 @@ alias ghcp="gh copilot suggest"
 alias ghpr="EDITOR=vim gh pr create"
 alias gh="EDITOR=vim gh"
 alias dstopall='docker stop $* $(docker ps -q -f "status=running")'
+alias v="nvim"
+
 # Custom Functions
 killport() {
   kill -9 $(lsof -ti :$1)
