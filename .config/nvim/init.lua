@@ -1,4 +1,4 @@
-require('options')
+require("options")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -12,7 +12,6 @@ require("lazy").setup({
 	{ import = "themes" },
 	{ import = "plugins" },
 }, {
-	ui = require("ui").setup(), 
+	ui = require("ui").setup(),
 })
-
-vim.cmd("colorscheme github_dark_high_contrast")
+vim.cmd.colorscheme("catppuccin")
