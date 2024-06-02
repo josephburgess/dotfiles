@@ -1,12 +1,12 @@
 return {
-    "tpope/vim-sleuth",
+	"tpope/vim-sleuth",
 	{ "numToStr/Comment.nvim", opts = {} },
 	{
 		"folke/which-key.nvim",
 		event = "VimEnter",
 		config = function()
 			require("which-key").setup({})
-			require('keymaps')
+			require("keymaps")
 		end,
 	},
 	{
