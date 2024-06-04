@@ -1,14 +1,14 @@
 return {
 	"tpope/vim-sleuth",
 	{ "numToStr/Comment.nvim", opts = {} },
-	{
-		"folke/which-key.nvim",
-		event = "VimEnter",
-		config = function()
-			require("which-key").setup({})
-			require("keymaps")
-		end,
-	},
+	-- {
+	-- 	"folke/which-key.nvim",
+	-- 	event = "VimEnter",
+	-- 	config = function()
+	-- 		require("which-key").setup({})
+	-- 		require("config.keymaps")
+	-- 	end,
+	-- },
 	{
 		"projekt0n/github-nvim-theme",
 		lazy = false,

@@ -21,38 +21,38 @@ return {
 			})
 			vim.keymap.set(
 				"n",
-				"<leader>pa",
+				"<leader>ka",
 				require("harpoon.mark").add_file,
 				{ silent = true, desc = "Add File to Harpoon" }
 			)
 			vim.keymap.set(
 				"n",
-				"<leader>pm",
+				"<leader>km",
 				require("harpoon.ui").toggle_quick_menu,
 				{ silent = true, desc = "Toggle Harpoon Menu" }
 			)
 			vim.keymap.set(
 				"n",
-				"<leader>pn",
+				"<leader>kn",
 				require("harpoon.ui").nav_next,
 				{ silent = true, desc = "Next Harpoon Mark" }
 			)
 			vim.keymap.set(
 				"n",
-				"<leader>pp",
+				"<leader>kp",
 				require("harpoon.ui").nav_prev,
 				{ silent = true, desc = "Previous Harpoon Mark" }
 			)
-			vim.keymap.set("n", "<leader>p1", function()
+			vim.keymap.set("n", "<leader>k1", function()
 				require("harpoon.ui").nav_file(1)
 			end, { silent = true, desc = "Go to Mark 1" })
-			vim.keymap.set("n", "<leader>p2", function()
+			vim.keymap.set("n", "<leader>k2", function()
 				require("harpoon.ui").nav_file(2)
 			end, { silent = true, desc = "Go to Mark 2" })
-			vim.keymap.set("n", "<leader>p3", function()
+			vim.keymap.set("n", "<leader>k3", function()
 				require("harpoon.ui").nav_file(3)
 			end, { silent = true, desc = "Go to Mark 3" })
-			vim.keymap.set("n", "<leader>p4", function()
+			vim.keymap.set("n", "<leader>k4", function()
 				require("harpoon.ui").nav_file(4)
 			end, { silent = true, desc = "Go to Mark 4" })
 		end,

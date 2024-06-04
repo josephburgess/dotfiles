@@ -25,7 +25,6 @@ return {
 				close = "\\",
 			},
 		})
-		-- require("mini.jump").setup()
 		require("mini.move").setup()
 		require("mini.notify").setup()
 		require("mini.map").setup()
@@ -53,8 +52,8 @@ return {
 			},
 			window = {
 				side = "right", -- Side to stick ('left' or 'right')
-				width = 17, -- Total width
-				winblend = 25, -- Value of 'winblend' option
+				width = 10, -- Total width
+				winblend = 15, -- Value of 'winblend' option
 				focusable = true, -- Whether window is focusable in normal way (with `wincmd` or mouse)
 				show_integration_count = false, -- Whether to show count of multiple integration highlights
 			},

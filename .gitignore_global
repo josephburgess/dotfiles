@@ -9,4 +9,4 @@ pyrightconfig.json
 .github/dependabot.yml
 docker-compose.debug.yml
 **/jsconfig.json
-
+.ropeproject

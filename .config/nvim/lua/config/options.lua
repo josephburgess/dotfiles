@@ -33,3 +33,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+vim.opt.termguicolors = true
+vim.opt.incsearch = true
+vim.opt.smoothscroll = true
+vim.opt.timeoutlen = 300
+vim.opt.fillchars = {
+	foldopen = "",
+	foldclose = "",
+	-- fold = "⸱",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	-- diff = "╱",
+	-- diff = "░",
+	-- diff = "·",
+	eob = " ",
+}
+vim.opt.expandtab = true
