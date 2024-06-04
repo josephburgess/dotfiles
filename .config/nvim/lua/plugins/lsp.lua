@@ -1,127 +1,102 @@
 return {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-        { "williamboman/mason.nvim", config = true },
-        "williamboman/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+	{
+		"neovim/nvim-lspconfig",
+		lazy = false,
+		dependencies = {
+			{
+				"b0o/SchemaStore.nvim",
+				version = false, 
+			},
+			{
+				"williamboman/mason-lspconfig.nvim",
+				lazy = false,
+				dependencies = {
+					{
+						"williamboman/mason.nvim",
+						lazy = false,
+					},
+				},
+			},
+				"hrsh7th/nvim-cmp",
+			{
+				"artemave/workspace-diagnostics.nvim",
+				enabled = false,
+			},
+		},
+		opts = {
+			servers = {
+			},
+		},
+		config = function(_, opts)
+			require("utils.diagnostics").setup_diagnostics()
 
-        { "j-hui/fidget.nvim", opts = {} },
+			local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+			local completion_capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = vim.tbl_deep_extend("force", client_capabilities, completion_capabilities)
 
-        { "folke/neodev.nvim", opts = {} },
-    },
-    config = function()
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-            callback = function(event)
-                local map = function(keys, func, desc)
-                    vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-                end
-                map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+			local function setup(server)
+				local server_opts = vim.tbl_deep_extend("force", {
+					capabilities = vim.deepcopy(capabilities),
+				}, opts.servers[server] or {})
 
-                map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+				require("lspconfig")[server].setup(server_opts)
+			end
+			
+			local have_mason, mlsp = pcall(require, "mason-lspconfig")
+			local all_mslp_servers = {}
+			if have_mason then
+				all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+			end
 
-                map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+			local ensure_installed = {} ---@type string[]
+			for server, server_opts in pairs(opts.servers) do
+				if server_opts then
+					server_opts = server_opts == true and {} or server_opts
+					if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
+						setup(server)
+					else
+						ensure_installed[#ensure_installed + 1] = server
+					end
+				end
+			end
 
-                map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+			if have_mason then
+				-- automatically hook up LSPs which are Mason-installed but not explicitly set up with `opts.servers`
+				mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
+			end
 
-                map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+			require("config.keymaps").setup_lsp_keymaps()
 
-                map(
-                    "<leader>ws",
-                    require("telescope.builtin").lsp_dynamic_workspace_symbols,
-                    "[W]orkspace [S]ymbols"
-                )
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("lsp-attach-keymaps", { clear = true }),
+				callback = function(event)
+					require("config.keymaps").setup_lsp_autocmd_keymaps(event)
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.server_capabilities.documentHighlightProvider then
+						local highlight_augroup =
+							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+							buffer = event.buf,
+							group = highlight_augroup,
+							callback = vim.lsp.buf.document_highlight,
+						})
 
-                map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+							buffer = event.buf,
+							group = highlight_augroup,
+							callback = vim.lsp.buf.clear_references,
+						})
 
-                map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-                map("K", vim.lsp.buf.hover, "Hover Documentation")
-
-                map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-
-                local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if client and client.server_capabilities.documentHighlightProvider then
-                    local highlight_augroup =
-                        vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-                    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.document_highlight,
-                    })
-
-                    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.clear_references,
-                    })
-
-                    vim.api.nvim_create_autocmd("LspDetach", {
-                        group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-                        callback = function(event2)
-                            vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-                        end,
-                    })
-                end
-
-                if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-                    map("<leader>th", function()
-                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-                    end, "[T]oggle Inlay [H]ints")
-                end
-            end,
-        })
-
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-        local servers = {
-            clangd = {},
-            -- gopls = {},
-            rust_analyzer = {},
-            tsserver = {},
-
-            lua_ls = {
-                settings = {
-                    Lua = {
-                        completion = {
-                            callSnippet = "Replace",
-                        },
-                    },
-                },
-            },
-
-            pylsp = {
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pycodestyle = {
-                                ignore = { "W391", "BLK100", "E1", "E2", "E3", "E5", "I", "W291" },
-                                maxLineLength = 120,
-                            },
-                            rope_autoimport = { enabled = true },
-                        },
-                    },
-                },
-            },
-        }
-        require("mason").setup()
-
-        local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            "stylua",
-        })
-        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-        require("mason-lspconfig").setup({
-            handlers = {
-                function(server_name)
-                    local server = servers[server_name] or {}
-                    server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    require("lspconfig")[server_name].setup(server)
-                end,
-            },
-        })
-    end,
+						vim.api.nvim_create_autocmd("LspDetach", {
+							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+							callback = function(event2)
+								vim.lsp.buf.clear_references()
+								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+							end,
+						})
+					end
+				end,
+			})
+		end,
+	},
 }
