@@ -96,7 +96,7 @@ Map("n", "<leader>Gbd", ":GitBlameDisable<CR>", { desc = "Blame line ({disable)"
 Map("n", "<leader>Gbs", ":GitBlameCopySHA<CR>", { desc = "Copy SHA", silent = true })
 Map("n", "<leader>Gbc", ":GitBlameCopyCommitURL<CR>", { desc = "Copy commit URL", silent = true })
 Map("n", "<leader>Gbf", ":GitBlameCopyFileURL<CR>", { desc = "Copy file URL", silent = true })
-
+-- https://github.com/stevearc/conform.nvim
 local function map_normal_mode(keys, func, desc)
 	-- default values:
 	-- noremap: false
@@ -236,12 +236,39 @@ end
 
 function M.setup_lsp_keymaps()
 	map_normal_mode("<leader>uh", require("utils.inlay-hints").toggle_inlay_hints, "Toggle inlay hints")
-  end
+end
 
-  function M.setup_diagnostics_keymaps()
+function M.setup_diagnostics_keymaps()
 	map_normal_mode("<leader>ud", function()
-	  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+		vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 	end, "Toggle diagnostics")
-  end
+end
+
+function M.setup_terminal_keymaps()
+	-- Both <C-/> and <C-_> are mapped due to the way control characters are interpreted by terminal emulators.
+	-- ASCII value of '/' is 47, and of '_' is 95. When <C-/> is pressed, the terminal sends (47 - 64) which wraps around to 111 ('o').
+	-- When <C-_> is pressed, the terminal sends (95 - 64) which is 31. Hence, both key combinations need to be mapped.
+
+	-- <C-/> toggles the floating terminal
+	local ctrl_slash = "<C-/>"
+	local ctrl_underscore = "<C-_>"
+	local ctrl_alt_slash = "<C-A-/>"
+	local ctrl_alt_underscore = "<C-A-_>"
+	local floating_term_cmd = "<cmd>lua require('utils.terminal').toggle_fterm()<CR>"
+	local split_term_cmd = "<cmd>lua require('utils.terminal').toggle_terminal_native()<CR>"
+	vim.keymap.set({ "n", "i", "t", "v" }, ctrl_alt_slash, split_term_cmd, { desc = "Toggle terminal" })
+	vim.keymap.set({ "n", "i", "t", "v" }, ctrl_alt_underscore, split_term_cmd, { desc = "Toggle terminal" })
+
+	-- C-A-/ toggles split terminal on/off
+	vim.keymap.set({ "n", "i", "t", "v" }, ctrl_slash, floating_term_cmd, { desc = "Toggle native terminal" })
+	vim.keymap.set({ "n", "i", "t", "v" }, ctrl_underscore, floating_term_cmd, { desc = "Toggle native terminal" })
+
+	-- Esc goes to NORMAL mode from TERMINAL mode
+	vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true })
+end
+
+function M.setup_conform_keymaps()
+	map_normal_mode("<leader>uf", require("utils.formatting").toggle_formatting, "Toggle auto-formatting")
+end
 
 return M

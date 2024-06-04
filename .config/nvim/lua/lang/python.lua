@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	callback = function()
 		vim.opt_local.tabstop = 4
 		vim.opt_local.shiftwidth = 4
-		vim.opt_local.colorcolumn = "88"
+		vim.opt_local.colorcolumn = "120"
 		if not vim.g.python3_host_prog then
 			vim.g.python3_host_prog = find_python_executable()
 		end

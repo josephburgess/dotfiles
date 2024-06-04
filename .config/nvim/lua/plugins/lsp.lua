@@ -5,7 +5,7 @@ return {
 		dependencies = {
 			{
 				"b0o/SchemaStore.nvim",
-				version = false, 
+				version = false,
 			},
 			{
 				"williamboman/mason-lspconfig.nvim",
@@ -17,15 +17,14 @@ return {
 					},
 				},
 			},
-				"hrsh7th/nvim-cmp",
+			"hrsh7th/nvim-cmp",
 			{
 				"artemave/workspace-diagnostics.nvim",
 				enabled = false,
 			},
 		},
 		opts = {
-			servers = {
-			},
+			servers = {},
 		},
 		config = function(_, opts)
 			require("utils.diagnostics").setup_diagnostics()
@@ -41,7 +40,7 @@ return {
 
 				require("lspconfig")[server].setup(server_opts)
 			end
-			
+
 			local have_mason, mlsp = pcall(require, "mason-lspconfig")
 			local all_mslp_servers = {}
 			if have_mason then

@@ -28,7 +28,6 @@ return {
 		require("mini.move").setup()
 		require("mini.notify").setup()
 		require("mini.map").setup()
-		require("mini.clue").setup()
 		local map = require("mini.map")
 		map.setup({
 			integrations = {
