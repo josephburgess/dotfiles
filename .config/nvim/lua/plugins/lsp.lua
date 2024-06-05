@@ -1,67 +1,38 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		lazy = false,
 		dependencies = {
-			{
-				"b0o/SchemaStore.nvim",
-				version = false,
-			},
-			{
-				"williamboman/mason-lspconfig.nvim",
-				lazy = false,
-				dependencies = {
-					{
-						"williamboman/mason.nvim",
-						lazy = false,
-					},
-				},
-			},
+			{ "b0o/SchemaStore.nvim", version = false },
+			{ "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim" } },
 			"hrsh7th/nvim-cmp",
-			{
-				"artemave/workspace-diagnostics.nvim",
-				enabled = false,
-			},
 		},
 		opts = {
-			servers = {},
+			servers = {}, -- Keep this as is or with specific configurations
 		},
 		config = function(_, opts)
+			-- Setup LSP and diagnostics configuration
 			require("utils.diagnostics").setup_diagnostics()
 
-			local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-			local completion_capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local capabilities = vim.tbl_deep_extend("force", client_capabilities, completion_capabilities)
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 			local function setup(server)
 				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(capabilities),
+					capabilities = vim.deepcopy(cmp_capabilities),
 				}, opts.servers[server] or {})
 
 				require("lspconfig")[server].setup(server_opts)
 			end
 
-			local have_mason, mlsp = pcall(require, "mason-lspconfig")
-			local all_mslp_servers = {}
-			if have_mason then
-				all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-			end
+			local mason_lspconfig = require("mason-lspconfig")
+			local all_mason_servers = vim.tbl_keys(mason_lspconfig.get_installed_servers())
 
-			local ensure_installed = {} ---@type string[]
 			for server, server_opts in pairs(opts.servers) do
-				if server_opts then
-					server_opts = server_opts == true and {} or server_opts
-					if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-						setup(server)
-					else
-						ensure_installed[#ensure_installed + 1] = server
-					end
+				if not vim.tbl_contains(all_mason_servers, server) then
+					setup(server)
+				else
+					mason_lspconfig.setup({ ensure_installed = { server }, handlers = { setup } })
 				end
-			end
-
-			if have_mason then
-				-- automatically hook up LSPs which are Mason-installed but not explicitly set up with `opts.servers`
-				mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
 			end
 
 			require("config.keymaps").setup_lsp_keymaps()
@@ -79,13 +50,11 @@ return {
 							group = highlight_augroup,
 							callback = vim.lsp.buf.document_highlight,
 						})
-
 						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
 							callback = vim.lsp.buf.clear_references,
 						})
-
 						vim.api.nvim_create_autocmd("LspDetach", {
 							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
 							callback = function(event2)

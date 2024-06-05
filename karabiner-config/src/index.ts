@@ -40,6 +40,10 @@ writeToProfile("karabiner-config", [
     map("caps_lock").toHyper().toIfAlone("escape"),
   ]),
 
+  rule("Tab -> Meh").manipulators([
+    map("tab").toMeh().toIfAlone("tab"),
+  ]),
+
   importJson(
     resolve(
       homedir(),

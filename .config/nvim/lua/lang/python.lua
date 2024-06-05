@@ -1,16 +1,3 @@
-local function prefer_bin_from_pyenv_or_venv(executable_name)
-	-- Check if using pyenv
-	if vim.env.PYENV_VERSION then
-		local pyenv_root = vim.fn.system("pyenv root"):gsub("%s+", "")
-		local pyenv_path = pyenv_root .. "/versions/" .. vim.env.PYENV_VERSION .. "/bin/" .. executable_name
-		if vim.fn.executable(pyenv_path) == 1 then
-			return pyenv_path
-		end
-	end
-
-	return nil
-end
-
 local function find_python_executable()
 	if vim.env.PYENV_VERSION then
 		local pyenv_root = vim.fn.system("pyenv root"):gsub("%s+", "")
@@ -22,11 +9,9 @@ local function find_python_executable()
 
 	if vim.fn.filereadable(".venv/bin/python") == 1 then
 		return vim.fn.expand(".venv/bin/python")
-	else
-		return vim.fn.exepath("python3")
 	end
 
-	return nil
+	return vim.fn.exepath("python3")
 end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
@@ -66,24 +51,5 @@ return {
 				},
 			},
 		},
-	},
-
-	{
-		"mfussenegger/nvim-lint",
-		ft = { "python" },
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		opts = function(_, opts)
-			opts.linters = opts.linters or {}
-			local mypy_path = prefer_bin_from_pyenv_or_venv("mypy")
-			opts.linters_by_ft = opts.linters_by_ft or {}
-			opts.linters_by_ft["python"] = { "mypy" }
-			if mypy_path then
-				opts.linters["mypy"] = {
-					cmd = mypy_path,
-				}
-			end
-		end,
 	},
 }

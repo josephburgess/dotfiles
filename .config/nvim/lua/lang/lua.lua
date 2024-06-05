@@ -79,18 +79,4 @@ return {
 			}
 		end,
 	},
-
-	{
-		"nvim-neotest/neotest",
-		ft = { "lua" },
-		dependencies = {
-			{
-				"nvim-neotest/neotest-plenary",
-			},
-		},
-		opts = function(_, opts)
-			opts.adapters = opts.adapters or {}
-			opts.adapters["neotest-plenary"] = {}
-		end,
-	},
 }

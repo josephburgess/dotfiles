@@ -839,6 +839,31 @@
             ]
           },
           {
+            "description": "Tab -> Meh",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "left_option",
+                    "modifiers": [
+                      "control",
+                      "shift"
+                    ]
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "tab"
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Imported from /Users/josephburgess/.config/karabiner/assets/complex_modifications/1713770432.json",
             "manipulators": [
               {
