@@ -75,13 +75,6 @@ Map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 -- plugins
 Map("n", "\\", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>", { desc = "Open MiniFiles" })
 
-Map("n", "<Leader>mc", ":MiniMap close<CR>", { desc = "Close minimap" })
-Map("n", "<Leader>mf", ":MiniMap toggle_focus<CR>", { desc = "Toggle focus" })
-Map("n", "<Leader>mo", ":MiniMap open<CR>", { desc = "Open minimap" })
-Map("n", "<Leader>mr", ":MiniMap refresh<CR>", { desc = "Refresh minimap" })
-Map("n", "<Leader>ms", ":MiniMap toggle_side<CR>", { desc = "Toggle side" })
-Map("n", "<Leader>mt", ":MiniMap toggle<CR>", { desc = "Toggle" })
-
 Map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 Map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 Map({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
@@ -269,6 +262,15 @@ end
 
 function M.setup_conform_keymaps()
 	map_normal_mode("<leader>uf", require("utils.formatting").toggle_formatting, "Toggle auto-formatting")
+end
+
+function M.setup_minimap_keymaps()
+	Map("n", "<Leader>mc", MiniMap.close, { desc = "Close minimap" })
+	Map("n", "<Leader>mf", MiniMap.toggle_focus, { desc = "Toggle focus" })
+	Map("n", "<Leader>mo", MiniMap.open, { desc = "Open minimap" })
+	Map("n", "<Leader>mr", MiniMap.refresh, { desc = "Refresh minimap" })
+	Map("n", "<Leader>ms", MiniMap.toggle_side, { desc = "Toggle side" })
+	Map("n", "<Leader>mt", MiniMap.toggle, { desc = "Toggle" })
 end
 
 return M

@@ -56,6 +56,7 @@ return {
 				focusable = true, -- Whether window is focusable in normal way (with `wincmd` or mouse)
 				show_integration_count = false, -- Whether to show count of multiple integration highlights
 			},
+			require("config.keymaps").setup_minimap_keymaps(),
 		})
 	end,
 }
