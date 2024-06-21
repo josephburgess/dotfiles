@@ -19,7 +19,7 @@ yabai -m config \
 	window_zoom_persist on \
 	window_topmost on \
 	window_shadow on \
-	window_animation_duration 0.0 \
+	window_animation_duration 0.1 \
 	window_animation_frame_rate 120 \
 	window_opacity_duration 0.0 \
 	active_window_opacity 1.0 \
@@ -36,11 +36,11 @@ yabai -m config \
 	split_ratio 0.50 \
 	split_type auto \
 	auto_balance off \
-	top_padding 4 \
-	bottom_padding 4 \
-	left_padding 4 \
-	right_padding 4 \
-	window_gap 4 \
+	top_padding 6 \
+	bottom_padding 6 \
+	left_padding 6 \
+	right_padding 6 \
+	window_gap 6 \
 	layout bsp \
 	mouse_modifier fn \
 	mouse_action1 move \
@@ -57,8 +57,6 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="CleanShot X" manage=off
 yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
-yabai -m rule --add app="^Fig$" manage=off
-yabai -m rule --add app="^CodeWhisperer$" manage=off
 
 yabai -m rule --add title='Settings$' manage=off
 yabai -m rule --add title='Settings$' sticky=on
@@ -70,3 +68,4 @@ defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 # Accelerated playback when adjusting the window size.
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0 hidpi=on style=round
