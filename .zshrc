@@ -1,10 +1,11 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-#   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
-# fi
 
+export TERM="xterm-256color"
+[[ -n $TMUX ]] && export TERM="screen-256color"
+
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -12,6 +13,8 @@ fi
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZK_NOTEBOOK_DIR="$HOME/Documents/zk"
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
@@ -29,6 +32,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit ice wait"1" lucid
+zinit light laggardkernel/zsh-thefuck
 
 # Add in snippets
 zinit snippet OMZP::git
@@ -93,7 +98,7 @@ alias loggraph="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yell
 alias g="lazygit"
 alias mkdir='mkdir -p'
 alias rm='rm -i'
-alias zshconfig="nvim ~/.zshrc"
+alias zshconfig="v ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
 alias dcr="docker-compose run --rm"
 alias awsume=". awsume"
@@ -114,12 +119,27 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias cl="clear"
+alias l="eza -l --icons --git -a"
+alias lt="eza --tree --level=2 --long --icons --git"
+alias fzfv="fzf | xargs nvim"
+alias vz='NVIM_APPNAME=nvim-lazyvim nvim'
+alias gh="EDITOR=~/nvim-lazyvim.sh gh"
+alias d="lazydocker"
 # Custom Functions
 killport() {
   kill -9 $(lsof -ti :$1)
 }
 
 mkcd() { mkdir -p "$1" && cd "$1"; }
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 # PATH
 export PATH=$(pyenv root)/shims:$PATH
@@ -130,8 +150,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-eval $(thefuck --alias)
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 
 source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
 source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
