@@ -1,13 +1,13 @@
 return {
-	{
-		"akinsho/toggleterm.nvim",
-		event = "VeryLazy",
-		version = "*",
-		enabled = false,
-		config = function(_, opts)
-			require("toggleterm").setup(opts)
-
-			require("config.keymaps").setup_terminal_keymaps()
-		end,
-	},
+  "akinsho/toggleterm.nvim",
+  version = "*",
+  config = function()
+    require("toggleterm").setup()
+    vim.keymap.set(
+      "n",
+      "<leader>td",
+      "<cmd>ToggleTerm size=15 direction =horizontal<cr>",
+      { desc = "Open Horizontal Terminal" }
+    )
+  end,
 }

@@ -1,71 +1,123 @@
 return {
+  "nvim-telescope/telescope.nvim",
+  cmd = "Telescope",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
+    {
+      "danielfalk/smart-open.nvim",
+      dependencies = {
+        "kkharji/sqlite.lua",
+        { "nvim-telescope/telescope-fzy-native.nvim" },
+      },
+    },
+  },
+  opts = function()
+    local actions = require("telescope.actions")
+    local themes = require("telescope.themes")
+    local custom_pickers = require("config.telescope_custom_pickers")
 
-	{
-		"nvim-telescope/telescope.nvim",
-		event = "VeryLazy",
-		tag = "0.1.6",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-ui-select.nvim" },
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				enabled = vim.fn.executable("make") == 1,
-				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-			},
-			{
-				"nvim-telescope/telescope-live-grep-args.nvim",
-			},
-			{ "smartpde/telescope-recent-files" },
-			{ "rcarriga/nvim-notify" },
-			{ "folke/trouble.nvim" }, -- for trouble.sources.telescope
-		},
-		opts = function(_, opts)
-			local custom_opts = {
-				defaults = {
-					file_ignore_patterns = { ".git/", "node_modules", "poetry.lock" },
-					vimgrep_arguments = {
-						"rg",
-						"--color=never",
-						"--no-heading",
-						"--hidden",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--smart-case",
-						"--trim",
-					},
-					mappings = {
-						i = {
-							["<c-t>"] = require("trouble.sources.telescope").open,
-							["<a-t>"] = require("trouble.sources.telescope").open,
-						},
-					},
-				},
-			}
-			return vim.tbl_deep_extend("force", custom_opts, opts)
-		end,
-		config = function(_, opts)
-			local telescope = require("telescope")
+    return {
+      defaults = {
+        mappings = {
+          i = {
+            ["<esc>"] = actions.close,
 
-			opts.extensions = {
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown({}),
-				},
-				recent_files = {
-					-- This extension's options, see below.
-					only_cwd = true,
-				},
-			}
+            ["<s-up>"] = actions.cycle_history_prev,
+            ["<s-down>"] = actions.cycle_history_next,
 
-			telescope.setup(opts)
+            ["<c-w>"] = function()
+              vim.api.nvim_input("<c-s-w>")
+            end,
+            ["<c-u>"] = function()
+              vim.api.nvim_input("<c-s-u>")
+            end,
+            ["<c-a>"] = function()
+              vim.api.nvim_input("<home>")
+            end,
+            ["<c-e>"] = function()
+              vim.api.nvim_input("<end>")
+            end,
 
-			telescope.load_extension("fzf")
-			telescope.load_extension("live_grep_args")
-			telescope.load_extension("ui-select")
-			telescope.load_extension("recent_files")
-			telescope.load_extension("notify")
+            ["<c-f>"] = actions.preview_scrolling_down,
+            ["<c-b>"] = actions.preview_scrolling_up,
 
-			require("config.keymaps").setup_telescope_keymaps()
-		end,
-	},
+            ["<c-p>"] = require("telescope.actions.layout").toggle_preview,
+          },
+        },
+      },
+      pickers = {
+        oldfiles = {
+          sort_lastused = true,
+          cwd_only = true,
+          path_display = { "filename_first" },
+        },
+        find_files = {
+          hidden = true,
+          find_command = {
+            "rg",
+            "--files",
+            "--color",
+            "never",
+            "--ignore-file",
+            vim.env.XDG_CONFIG_HOME .. "/ripgrep/ignore",
+          },
+        },
+        live_grep = {
+          path_display = { "shorten" },
+          mappings = {
+            i = {
+              ["<c-f>"] = custom_pickers.actions.set_extension,
+              ["<c-l>"] = custom_pickers.actions.set_folders,
+            },
+          },
+        },
+      },
+      extensions = {
+        ["ui-select"] = {
+          themes.get_cursor({}),
+        },
+      },
+    }
+  end,
+
+  config = function(_, opts)
+    require("telescope").setup(opts)
+
+    require("telescope").load_extension("smart_open")
+    require("telescope").load_extension("ui-select")
+  end,
+
+  keys = {
+    {
+      "<c-p>",
+      function()
+        require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
+      end,
+    },
+    {
+      "<leader>ff",
+      function()
+        require("config.telescope_custom_pickers").live_grep()
+      end,
+    },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>" },
+    {
+      "<leader>fr",
+      function()
+        require("telescope.builtin").oldfiles()
+      end,
+    },
+    {
+      "<leader>;",
+      function()
+        local builtin = require("telescope.builtin")
+        builtin.resume()
+      end,
+      desc = "Resume the previous telescope picker",
+    },
+    { "<leader>fx", "<cmd>Telescope git_status<cr>" },
+    { "<leader>fc", "<cmd>Telescope git_commits<cr>" },
+    { "<leader>ca", vim.lsp.buf.code_action },
+  },
 }

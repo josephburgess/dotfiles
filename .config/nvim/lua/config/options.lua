@@ -1,52 +1,16 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.have_nerd_font = true
-vim.opt.number = true
-vim.opt.mouse = "a"
-vim.opt.showmode = false
-vim.opt.clipboard = "unnamedplus"
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.inccommand = "split"
-vim.opt.cursorline = true
 vim.opt.scrolloff = 10
-vim.opt.hlsearch = true
-vim.wo.relativenumber = true
-vim.g.lazygit_use_neovim_remote = 1
-vim.g.lazygit_use_custom_config_file_path = 1
-vim.g.lazygit_config_file_path = "/Users/josephburgess/.config/lazygit/config.yml"
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+vim.opt.showmode = false
+vim.o.termguicolors = true
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
+vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
+vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
+vim.b.autoformat = false
+
+-- vim.opt.spell = true
+-- vim.opt.spelllang = { "en_us" }
+--
+vim.diagnostic.config({
+  virtual_text = false,
 })
-vim.opt.termguicolors = true
-vim.opt.incsearch = true
-vim.opt.smoothscroll = true
-vim.opt.timeoutlen = 300
-vim.opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	-- fold = "⸱",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	-- diff = "╱",
-	-- diff = "░",
-	-- diff = "·",
-	eob = " ",
-}
-vim.opt.expandtab = true
