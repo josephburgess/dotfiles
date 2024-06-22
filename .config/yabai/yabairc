@@ -9,7 +9,8 @@
 #
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
-
+gapsize=28
+margin=20
 # global settings
 yabai -m config \
 	mouse_follows_focus off \
@@ -18,8 +19,7 @@ yabai -m config \
 	window_placement second_child \
 	window_zoom_persist on \
 	window_topmost on \
-	window_shadow on \
-	window_animation_duration 0.1 \
+	window_shadow off \
 	window_animation_frame_rate 120 \
 	window_opacity_duration 0.0 \
 	active_window_opacity 1.0 \
@@ -36,17 +36,20 @@ yabai -m config \
 	split_ratio 0.50 \
 	split_type auto \
 	auto_balance off \
-	top_padding 6 \
-	bottom_padding 6 \
-	left_padding 6 \
-	right_padding 6 \
-	window_gap 6 \
+	top_padding $margin \
+	bottom_padding $margin \
+	left_padding $margin \
+	right_padding $margin \
+	window_gap $gapsize \
 	layout bsp \
 	mouse_modifier fn \
 	mouse_action1 move \
 	mouse_action2 resize \
-	mouse_drop_action swap
-
+	mouse_drop_action swap \
+	window_animation_duration 0.03 \
+	window_animation_easing ease_out_quint \
+	\
+	insert_feedback_color 0xaa676767
 yabai -m rule --add app='^System Information$' manage=off
 yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add title='Preferences$' manage=off
@@ -68,4 +71,8 @@ defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 # Accelerated playback when adjusting the window size.
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0 hidpi=on style=round
+# borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0 hidpi=on style=round
+borders \
+	"active_color=gradient(top_left=0xffffc640,bottom_right=0xffba3aa5)" \
+	"inactive_color=gradient(top_left=0xaa45c4c0,bottom_right=0xaaba3aa5)" \
+	width=4
