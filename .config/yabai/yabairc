@@ -9,8 +9,8 @@
 #
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
-gapsize=28
-margin=20
+gapsize=20
+margin=15
 # global settings
 yabai -m config \
 	mouse_follows_focus off \
