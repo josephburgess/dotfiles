@@ -1026,12 +1026,12 @@
             ]
           },
           {
-            "description": "Layer - app-launch-layer",
+            "description": "Launch Apps",
             "manipulators": [
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "o",
+                  "key_code": "f",
                   "modifiers": {
                     "mandatory": [
                       "command",
@@ -1043,94 +1043,7 @@
                 },
                 "to": [
                   {
-                    "set_variable": {
-                      "name": "app-launch-layer",
-                      "value": 1
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_unless",
-                    "name": "app-launch-layer",
-                    "value": 1
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "app-launch-layer",
-                      "value": 0
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -a \"Finder\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
                     "shell_command": "open -a \"Firefox Developer Edition\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -a \"Google Chrome\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
                   }
                 ]
               },
@@ -1140,7 +1053,10 @@
                   "key_code": "s",
                   "modifiers": {
                     "mandatory": [
-                      "any"
+                      "command",
+                      "option",
+                      "control",
+                      "shift"
                     ]
                   }
                 },
@@ -1148,58 +1064,24 @@
                   {
                     "shell_command": "open -a \"Slack\".app"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "t",
+                  "key_code": "semicolon",
                   "modifiers": {
                     "mandatory": [
-                      "any"
+                      "command",
+                      "option",
+                      "control",
+                      "shift"
                     ]
                   }
                 },
                 "to": [
                   {
-                    "shell_command": "open -a \"iTerm\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "v",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -a \"Visual Studio Code\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
+                    "shell_command": "open -a \"Kitty\".app"
                   }
                 ]
               },
@@ -1209,20 +1091,16 @@
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
-                      "any"
+                      "command",
+                      "option",
+                      "control",
+                      "shift"
                     ]
                   }
                 },
                 "to": [
                   {
                     "shell_command": "open -a \"Spotify\".app"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "app-launch-layer",
-                    "value": 1
                   }
                 ]
               }
