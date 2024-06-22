@@ -1,5 +1,3 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-CPU=$(top -l 1 | awk '/^CPU usage:/ {print $3}' | tr -d '%' | cut -d "." -f1)
-
-sketchybar --set $NAME label="$CPU%"
+sketchybar --set "$NAME" icon="" label="$(ps -A -o %cpu | awk '{s+=$1} END {s /= 8} END {printf "%.1f%%\n", s}')"
