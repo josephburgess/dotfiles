@@ -224,7 +224,7 @@ hyper - 9 : yabai -m space --focus 9
 hyper - 0  : yabai -m space --focus 10
 
 # delete focused space
-alt - q : yabai -m space --destroy
+# alt - q : yabai -m space --destroy
 
 # create a new space, move window and follow focus
 # hyper + w : yabai -m space --create && \
@@ -243,7 +243,7 @@ alt - r : yabai -m space --rotate 90
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
-          
+
 # # toggle window native fullscreen
 # alt + shift - f : yabai -m window --toggle native-fullscreen
 
