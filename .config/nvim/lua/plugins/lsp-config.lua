@@ -11,10 +11,9 @@ return {
       opts.servers = opts.servers or {}
       opts.autoformat = opts.autoformat or {}
       opts.autoformat = false
-      -- Configure pylsp server
 
       opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics or {}, {
-        virtual_text = false, -- Disable inline virtual text
+        virtual_text = false,
         signs = true,
         underline = true,
         update_in_insert = true,
@@ -40,44 +39,19 @@ return {
         },
       }
 
-      -- Configure pyright server
       opts.servers.pyright = {
         settings = {
-          pyright = {
-            disableLanguageServices = false,
-            disableOrganizeImports = false,
-            disableTaggedHints = false,
-          },
           python = {
             analysis = {
               autoImportCompletions = true,
               autoSearchPaths = true,
               diagnosticMode = "openFilesOnly",
               typeCheckingMode = "off",
-              useLibraryCodeForTypes = true,
-              diagnosticSeverityOverrides = {
-                reportMissingModuleSource = "warning",
-                reportMissingImports = "warning",
-                reportUndefinedVariable = "none",
-                reportIncompatibleMethodOverride = false,
-                reportIncompatibleVariableOverride = false,
-              },
             },
           },
         },
       }
 
-      -- Configure ruff_lsp server
-      opts.servers.ruff_lsp = {
-        on_attach = function(client, _)
-          client.server_capabilities.hoverProvider = false
-        end,
-        init_options = {
-          settings = {},
-        },
-      }
-
-      -- Setup autocommands for floating diagnostics
       vim.o.updatetime = 250
       vim.api.nvim_create_autocmd("CursorHold", {
         group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
@@ -94,7 +68,6 @@ return {
         end,
       })
 
-      -- Schedule LspStart command to run
       vim.schedule(function()
         vim.cmd("LspStart")
       end)

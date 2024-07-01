@@ -54,3 +54,10 @@ Map({ "n", "t" }, "<C-p>", "<CMD>NavigatorPrevious<CR>")
 Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
   desc = "Search on current file",
 })
+
+Map("n", "<leader>oi", function()
+  require("oil").open()
+end, { desc = "Oil current dir" })
+Map("n", "<leader>of", function()
+  require("oil").open_float(".")
+end, { desc = "Oil floating window" })

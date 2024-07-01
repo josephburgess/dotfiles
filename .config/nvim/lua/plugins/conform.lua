@@ -15,7 +15,7 @@ return {
       graphql = { "prettier" },
       lua = { "stylua" },
       ["*"] = { "trim_whitespace" },
-      python = { "isort", "ruff_format", "ruff_fix" },
+      python = { "isort", "yapf" },
     },
   },
 }
