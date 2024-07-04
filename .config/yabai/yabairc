@@ -19,7 +19,7 @@ yabai -m config \
 	window_placement second_child \
 	window_zoom_persist on \
 	window_topmost on \
-	window_shadow off \
+	window_shadow on \
 	window_animation_frame_rate 120 \
 	window_opacity_duration 0.0 \
 	active_window_opacity 1.0 \
@@ -75,4 +75,4 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 borders \
 	"active_color=gradient(top_left=0xffffc640,bottom_right=0xffba3aa5)" \
 	"inactive_color=gradient(top_left=0xaa45c4c0,bottom_right=0xaaba3aa5)" \
-	width=4
+	width=2
