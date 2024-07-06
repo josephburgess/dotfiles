@@ -24,20 +24,20 @@ return {
         },
       })
 
-      opts.servers.pylsp = {
-        settings = {
-          pylsp = {
-            configurationSources = { "pycodestyle" },
-            plugins = {
-              pycodestyle = {
-                ignore = { "E3", "I", "W291" },
-                maxLineLength = 120,
-              },
-              pyflakes = { enabled = false },
-            },
-          },
-        },
-      }
+      -- opts.servers.pylsp = {
+      --   settings = {
+      --     pylsp = {
+      --       configurationSources = { "pycodestyle" },
+      --       plugins = {
+      --         pycodestyle = {
+      --           ignore = { "E3", "I", "W291" },
+      --           maxLineLength = 120,
+      --         },
+      --         pyflakes = { enabled = false },
+      --       },
+      --     },
+      --   },
+      -- }
 
       opts.servers.pyright = {
         settings = {
