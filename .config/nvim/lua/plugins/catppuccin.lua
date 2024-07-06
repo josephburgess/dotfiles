@@ -63,7 +63,7 @@ return {
               -- Add undercurl for spelling errors and other highlights
               SpellBad = { sp = colors.red, undercurl = true },
               SpellCap = { sp = colors.yellow, undercurl = true },
-              SpellRare = { sp = colors.purple, undercurl = true },
+              SpellRare = { sp = colors.pink, undercurl = true },
               SpellLocal = { sp = colors.blue, undercurl = true },
             }
           end,
