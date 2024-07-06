@@ -10,7 +10,7 @@ return {
           light = "latte",
           dark = "mocha",
         },
-        transparent_background = false, -- disables setting the background color.
+        transparent_background = true, -- disables setting the background color.
         show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
         term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
@@ -26,11 +26,11 @@ return {
           conditionals = { "italic" },
           loops = {},
           functions = {},
-          keywords = {},
+          keywords = { "italic" },
           strings = {},
           variables = {},
           numbers = {},
-          booleans = {},
+          booleans = { "italic" },
           properties = {},
           types = {},
           operators = {},
@@ -100,18 +100,37 @@ return {
         },
         default_integrations = true,
         integrations = {
+          alpha = true,
+          dashboard = true,
           cmp = true,
+          flash = true,
           gitsigns = true,
+          navic = { enabled = true, custom_bg = "lualine" },
           nvimtree = true,
           telescope = {
             enabled = true,
-            style = "nvchad",
           },
           treesitter = true,
           notify = false,
           mini = {
             enabled = true,
             indentscope_color = "",
+          },
+          lsp_trouble = true,
+          mason = true,
+          noice = true,
+          treesitter_context = true,
+          native_lsp = {
+            enabled = true,
+            underlines = {
+              errors = { "undercurl" },
+              hints = { "undercurl" },
+              warnings = { "undercurl" },
+              information = { "undercurl" },
+            },
+            inlay_hints = {
+              background = false,
+            },
           },
         },
       })
