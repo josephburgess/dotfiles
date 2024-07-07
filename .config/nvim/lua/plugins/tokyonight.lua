@@ -5,6 +5,7 @@ return {
     priority = 1000,
     opts = {
       transparent = true,
+      plugins = { auto = true },
       styles = {
         sidebars = "transparent",
         floats = "transparent",
@@ -14,8 +15,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "tokyonight-night",
-      colorscheme = "catppuccin-macchiato",
+      colorscheme = "tokyonight-night",
+      -- colorscheme = "catppuccin-macchiato",
     },
   },
 }
