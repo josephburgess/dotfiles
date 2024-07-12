@@ -123,7 +123,7 @@ alias l="eza -l --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias fzfv="fzf | xargs nvim"
 alias vz='NVIM_APPNAME=nvim-lazyvim nvim'
-alias gh="EDITOR=~/nvim-lazyvim.sh gh"
+alias gh="EDITOR=nvim gh"
 alias d="lazydocker"
 
 # Custom Functions
