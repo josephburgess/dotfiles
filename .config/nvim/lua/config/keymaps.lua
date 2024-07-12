@@ -27,9 +27,7 @@ Map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down" })
 Map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up" })
 
 Map("n", "x", '"_x')
-Map("n", "<Leader>p", '"0p')
 Map("n", "<Leader>P", '"0P')
-Map("v", "<Leader>p", '"0p')
 Map("n", "<Leader>d", '"_d')
 Map("n", "<Leader>D", '"_D')
 Map("v", "<Leader>d", '"_d')
@@ -54,6 +52,8 @@ Map({ "n", "t" }, "<C-p>", "<CMD>NavigatorPrevious<CR>")
 Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
   desc = "Search on current file",
 })
+
+Map("n", "<Leader>ry", ":PythonCopyReferenceDotted<CR>", { desc = "Copy python ref" })
 
 Map("n", "<leader>oi", function()
   require("oil").open()
