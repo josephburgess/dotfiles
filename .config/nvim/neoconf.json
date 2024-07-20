@@ -1,0 +1,25 @@
+{
+  "lspconfig": {
+    "servers": {
+      "tsserver": {},
+      "basedpyright": {
+        "analysis": {
+          "autoSearchPaths": true,
+          "diagnosticMode": "workspace",
+          "useLibraryCodeForTypes": true
+        }
+      }
+    },
+    "diagnostics": {
+      "virtual_text": false,
+      "signs": true,
+      "underline": true,
+      "update_in_insert": true,
+      "severity_sort": true,
+      "float": {
+        "source": "always",
+        "border": "rounded"
+      }
+    }
+  }
+}
