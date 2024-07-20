@@ -122,7 +122,7 @@ alias cl="clear"
 alias l="eza -l --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias fzfv="fzf | xargs nvim"
-alias vz='NVIM_APPNAME=nvim-lazyvim nvim'
+alias vz='NVIM_APPNAME=nvim-raw nvim'
 alias gh="EDITOR=nvim gh"
 alias d="lazydocker"
 
@@ -208,6 +208,9 @@ b() {
 }
 
 # PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH=$(pyenv root)/shims:$PATH
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$HOME"
