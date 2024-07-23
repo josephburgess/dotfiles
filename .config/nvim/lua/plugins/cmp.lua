@@ -1,47 +1,61 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    version = false,
+    event = "InsertEnter",
     dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-      "L3MON4D3/LuaSnip",
     },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "buffer" })
-      table.insert(opts.sources, { name = "path" })
-      table.insert(opts.sources, { name = "nvim_lsp" })
-      table.insert(opts.sources, { name = "nvim_lua" })
-      table.insert(opts.sources, { name = "luasnip" })
+    opts = function()
+      local cmp = require("cmp")
+      return {
+        snippet = {
+          expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- Use `vim-vsnip` as snippet engine.
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "path" },
+        }, {
+          { name = "buffer" },
+        }),
+      }
     end,
   },
   {
     "hrsh7th/cmp-cmdline",
     config = function()
       local cmp = require("cmp")
-      ---@diagnostic disable-next-line: missing-fields
+      -- `/` cmdline setup.
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline({
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-e>"] = cmp.mapping.abort(),
+        }),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+      -- `:` cmdline setup.
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline({
-          ["<C-n>"] = {
-            c = function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()
-              else
-                fallback()
-              end
-            end,
-          },
-          ["<C-p>"] = {
-            c = function(fallback)
-              if cmp.visible() then
-                cmp.select_prev_item()
-              else
-                fallback()
-              end
-            end,
-          },
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-e>"] = cmp.mapping.abort(),
         }),

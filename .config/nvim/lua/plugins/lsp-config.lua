@@ -14,7 +14,9 @@ return {
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
+      ---@diagnostic disable-next-line: missing-fields
       servers = {
+        ---@diagnostic disable-next-line: missing-fields
         tsserver = {},
 
         --   pylsp = {
@@ -54,7 +56,14 @@ return {
 
         opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics or {}, {
           virtual_text = false,
-          signs = true,
+          signs = {
+            text = {
+              [vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
+              [vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
+              [vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
+              [vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
+            },
+          },
           underline = true,
           update_in_insert = true,
           severity_sort = true,
@@ -75,7 +84,7 @@ return {
         vim.api.nvim_create_autocmd("CursorHold", {
           group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
           callback = function()
-            local opts = {
+            local options = {
               focusable = false,
               close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
               border = "rounded",
@@ -83,7 +92,7 @@ return {
               prefix = " ",
               scope = "cursor",
             }
-            vim.diagnostic.open_float(nil, opts)
+            vim.diagnostic.open_float(nil, options)
           end,
         })
 

@@ -14,3 +14,4 @@ vim.b.autoformat = false
 vim.diagnostic.config({
   virtual_text = false,
 })
+vim.opt.completeopt = "noselect"
