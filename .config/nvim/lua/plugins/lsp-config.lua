@@ -19,20 +19,20 @@ return {
         ---@diagnostic disable-next-line: missing-fields
         tsserver = {},
 
-        --   pylsp = {
-        --     settings = {
-        --       pylsp = {
-        --         configurationSources = { "flake8" },
-        --         plugins = {
-        --           pycodestyle = { enabled = false },
-        --           mccabe = { enabled = false },
-        --           pyflakes = { enabled = false },
-        --           flake8 = { enabled = true },
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
+        --
 
         ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
         setup = {
@@ -72,6 +72,20 @@ return {
             border = "rounded",
           },
         })
+
+        opts.servers.pylsp = {
+          settings = {
+            pylsp = {
+              configurationSources = { "flake8" },
+              plugins = {
+                pycodestyle = { enabled = false },
+                mccabe = { enabled = false },
+                pyflakes = { enabled = false },
+                flake8 = { enabled = true, maxLineLength = 120 },
+              },
+            },
+          },
+        }
 
         opts.servers.basedpyright = {
           analysis = {

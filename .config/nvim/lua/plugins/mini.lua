@@ -3,7 +3,6 @@ return {
   config = function()
     require("mini.move").setup()
     require("mini.map").setup()
-    require("mini.completion").setup()
     local map = require("mini.map")
     map.setup({
       integrations = {
