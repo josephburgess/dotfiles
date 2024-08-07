@@ -10,3 +10,4 @@ pyrightconfig.json
 docker-compose.debug.yml
 **/jsconfig.json
 .ropeproject
+.neoconf.json
