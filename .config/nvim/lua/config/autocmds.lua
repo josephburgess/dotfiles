@@ -8,3 +8,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.colorcolumn = "140"
   end,
 })
+local function clear_python_variable_highlight()
+  vim.api.nvim_set_hl(0, "@variable.python", {})
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = clear_python_variable_highlight,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = clear_python_variable_highlight,
+})

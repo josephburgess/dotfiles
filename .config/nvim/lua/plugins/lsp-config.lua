@@ -1,4 +1,5 @@
 return {
+  { "folke/neoconf.nvim", opts = {} },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -73,19 +74,19 @@ return {
           },
         })
 
-        opts.servers.pylsp = {
-          settings = {
-            pylsp = {
-              configurationSources = { "flake8" },
-              plugins = {
-                pycodestyle = { enabled = false },
-                mccabe = { enabled = false },
-                pyflakes = { enabled = false },
-                flake8 = { enabled = true, maxLineLength = 120 },
-              },
-            },
-          },
-        }
+        -- opts.servers.pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       configurationSources = { "flake8" },
+        --       plugins = {
+        --         pycodestyle = { enabled = false },
+        --         mccabe = { enabled = false },
+        --         pyflakes = { enabled = false },
+        --         flake8 = { enabled = true, maxLineLength = 120 },
+        --       },
+        --     },
+        --   },
+        -- }
 
         opts.servers.basedpyright = {
           analysis = {
@@ -94,6 +95,7 @@ return {
             useLibraryCodeForTypes = true,
           },
         }
+        opts.inlay_hints = { enabled = false }
 
         vim.api.nvim_create_autocmd("CursorHold", {
           group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
