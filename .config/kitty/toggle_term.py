@@ -1,9 +1,7 @@
 from kittens.tui.handler import result_handler
 
-
 def main(args):
     pass
-
 
 def toggle_term(boss):
     tab = boss.active_tab
@@ -14,6 +12,8 @@ def toggle_term(boss):
     if have_only_one:
         boss.launch('--cwd=current', '--location=hsplit')
         tab.neighboring_window("bottom")
+
+        boss.active_tab.resize_window('shorter', 15)
     else:
         if tab.current_layout.name == 'stack':
             tab.last_used_layout()
