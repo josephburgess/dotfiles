@@ -119,12 +119,13 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias cl="clear"
-alias l="eza -l --icons --git -a"
+alias l="eza --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias fzfv="fzf | xargs nvim"
 alias vz='NVIM_APPNAME=nvim-raw nvim'
 alias gh="EDITOR=nvim gh"
 alias d="lazydocker"
+alias snowsql="/Applications/SnowSQL.app/Contents/MacOS/snowsql"
 
 # Custom Functions
 killport() {
