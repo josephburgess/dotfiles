@@ -10,10 +10,10 @@ local function Map(mode, lhs, rhs, opts)
 end
 
 -- General keymaps
-Map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-Map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-Map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-Map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+-- Map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+-- Map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+-- Map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+-- Map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 -- Select all
 Map("n", "<C-a>", "gg<S-v>G")
