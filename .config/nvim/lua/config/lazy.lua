@@ -46,15 +46,12 @@ function SetColorscheme()
 
   if string.match(theme, "light") then
     vim.o.background = "light"
-    vim.cmd("colorscheme rose-pine-dawn")
+    -- vim.cmd("colorscheme tokyonight-day")
+    -- vim.cmd("colorscheme rose-pine-dawn")
+    vim.cmd("colorscheme gruvbox-material")
   else
     vim.o.background = "dark"
-    vim.cmd("colorscheme rose-pine-main")
-    -- if string.match(theme, "light") then
-    --   vim.o.background = "light"
-    --   vim.cmd("colorscheme tokyonight-day")
-    -- else
-    --   vim.o.background = "dark"
-    --   vim.cmd("colorscheme tokyonight-moon")
+    vim.cmd("colorscheme tokyonight-moon")
+    --   vim.cmd("colorscheme rose-pine-main")
   end
 end
