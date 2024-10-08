@@ -15,15 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.json" },
     { import = "plugins" },
   },
   defaults = {
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = true },
   performance = {
     rtp = {
@@ -37,3 +34,27 @@ require("lazy").setup({
     },
   },
 })
+
+function SetColorscheme()
+  local theme_file = os.getenv("HOME") .. "/.current_theme"
+  local theme = "dark" -- Default to dark theme
+  local file = io.open(theme_file, "r")
+  if file then
+    theme = file:read("*all")
+    file:close()
+  end
+
+  if string.match(theme, "light") then
+    vim.o.background = "light"
+    vim.cmd("colorscheme rose-pine-dawn")
+  else
+    vim.o.background = "dark"
+    vim.cmd("colorscheme rose-pine-main")
+    -- if string.match(theme, "light") then
+    --   vim.o.background = "light"
+    --   vim.cmd("colorscheme tokyonight-day")
+    -- else
+    --   vim.o.background = "dark"
+    --   vim.cmd("colorscheme tokyonight-moon")
+  end
+end

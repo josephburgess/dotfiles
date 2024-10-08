@@ -21,3 +21,20 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = clear_python_variable_highlight,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyVimStarted",
+  callback = function()
+    SetColorscheme()
+  end,
+})
+
+local theme_file = os.getenv("HOME") .. "/.current_theme"
+local watch_theme_file = vim.loop.new_fs_event()
+watch_theme_file:start(
+  theme_file,
+  {},
+  vim.schedule_wrap(function()
+    SetColorscheme()
+  end)
+)
