@@ -217,6 +217,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$HOME"
 export PATH="$HOME/workspace/tools/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/zig-versions/zig-0.14.0-dev:$PATH"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
