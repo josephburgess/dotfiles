@@ -55,24 +55,21 @@ writeToProfile("karabiner-config", [
       f: toApp("Firefox Developer Edition"),
       s: toApp("Slack"),
       ";": toApp("Kitty"),
-      p: toApp("Spotify"),
     }),
   ]),
 
-  // rule("Launch Apps").manipulators([
-  //   withModifier("left_option")({
-  //     return_or_enter: toApp("Kitty"),
-  //   }),
-  // ]),
-  // hyperLayer("o", "app-launch-layer").manipulators([
-  //   { f: toApp("Finder") },
-  //   { b: toApp("Firefox Developer Edition") },
-  //   { c: toApp("Google Chrome") },
-  //   { s: toApp("Slack") },
-  //   { t: toApp("iTerm") },
-  //   { v: toApp("Visual Studio Code") },
-  //   { p: toApp("Spotify") },
-  // ]),
+  rule("Control").manipulators([
+    withModifier("Hyper")({
+      // h: toKey("rewind"),
+      // l: toKey("fastforward"),
+      // k: toKey("play_or_pause"),
+      // j: toKey("volume_decrement"),
+      // u: toKey("volume_increment"),
+      // m: toKey("mute"),
+      i: toKey("apple_display_brightness_decrement"),
+      p: toKey("apple_display_brightness_increment"),
+    }),
+  ]),
 
   hyperLayer("b", "browser-launch-layer").manipulators([
     { g: to$('open "https://github.com"') },
@@ -86,17 +83,6 @@ writeToProfile("karabiner-config", [
         'open "https://nestiolistings.atlassian.net/jira/software/projects/AUTO/boards/78?assignee=712020%3Aee6769de-6645-4366-a7c5-75deffd3351a"',
       ),
     },
-  ]),
-
-  hyperLayer("c", "control-layer").manipulators([
-    { h: toKey("rewind") },
-    { l: toKey("fastforward") },
-    { k: toKey("play_or_pause") },
-    { j: toKey("volume_decrement") },
-    { u: toKey("volume_increment") },
-    { m: toKey("mute") },
-    { i: toKey("apple_display_brightness_decrement") },
-    { p: toKey("apple_display_brightness_increment") },
   ]),
 
   rule("Key mapping").manipulators([
