@@ -46,7 +46,6 @@ return {
       },
     },
 
-    { import = "lazyvim.plugins.extras.lang.typescript" },
     {
       "neovim/nvim-lspconfig",
       opts = function(_, opts)
@@ -88,6 +87,7 @@ return {
         --   },
         -- }
 
+        opts.servers.zls = {}
         opts.servers.basedpyright = {
           analysis = {
             autoSearchPaths = true,
