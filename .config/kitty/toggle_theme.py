@@ -1,42 +1,36 @@
 from typing import List
 from kitty.boss import Boss
 import os
-
-def main(args: List[str]) -> str:
-    return ""
-
 from kittens.tui.handler import result_handler
+
+DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine.conf')
+LIGHT_THEME = os.path.expanduser('~/.config/kitty/rose-pine-dawn.conf')
+GLOBAL_THEME_FILE = os.path.expanduser('~/.current_theme')
+CURRENT_THEME_CONF = os.path.expanduser('~/.config/kitty/current-theme.conf')
+
+def read_current_theme() -> str:
+    if os.path.isfile(GLOBAL_THEME_FILE):
+        with open(GLOBAL_THEME_FILE, 'r') as f:
+            return f.read().strip()
+    return 'dark'
+
+def write_theme(theme: str, theme_file: str) -> None:
+    with open(GLOBAL_THEME_FILE, 'w') as f:
+        f.write(theme)
+    with open(CURRENT_THEME_CONF, 'w') as f:
+        f.write(f'include {theme_file}\n')
+
 @result_handler(no_ui=True)
 def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
-    dark_theme = os.path.expanduser('~/.config/kitty/rose-pine.conf')
-    light_theme = os.path.expanduser('~/.config/kitty/rose-pine-dawn.conf')
-
-    theme_file = os.path.expanduser('~/.current_theme')
-    current_theme_conf = os.path.expanduser('~/.config/kitty/current-theme.conf')
-
-    if os.path.isfile(theme_file):
-        with open(theme_file, 'r') as f:
-            current_theme = f.read().strip()
-    else:
-        current_theme = 'dark'
-
-    if current_theme == 'dark':
-        new_theme = 'light'
-        new_theme_file = light_theme
-    else:
-        new_theme = 'dark'
-        new_theme_file = dark_theme
+    current_theme = read_current_theme()
+    new_theme, new_theme_file = ('light', LIGHT_THEME) if current_theme == 'dark' else ('dark', DARK_THEME)
 
     boss.call_remote_control(
         boss.active_window,
         ('set-colors', '-a', new_theme_file)
     )
 
-    with open(theme_file, 'w') as f:
-        f.write(new_theme)
+    write_theme(new_theme, new_theme_file)
 
-    with open(current_theme_conf, 'w') as f:
-        if new_theme == 'dark':
-            f.write(f'include {dark_theme}\n')
-        else:
-            f.write(f'include {light_theme}\n')
+def main(args: List[str]) -> str:
+    return "handle_result"
