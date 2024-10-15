@@ -126,6 +126,7 @@ alias vz='NVIM_APPNAME=nvim-raw nvim'
 alias gh="EDITOR=nvim gh"
 alias d="lazydocker"
 alias snowsql="/Applications/SnowSQL.app/Contents/MacOS/snowsql"
+alias ksnv='NVIM_APPNAME="nvim-kickstart" nvim'
 
 # Custom Functions
 killport() {
