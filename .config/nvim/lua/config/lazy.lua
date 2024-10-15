@@ -37,7 +37,7 @@ require("lazy").setup({
 
 function SetColorscheme()
   local theme_file = os.getenv("HOME") .. "/.current_theme"
-  local theme = "dark" -- Default to dark theme
+  local theme = "dark"
   local file = io.open(theme_file, "r")
   if file then
     theme = file:read("*all")
@@ -48,10 +48,10 @@ function SetColorscheme()
     vim.o.background = "light"
     -- vim.cmd("colorscheme tokyonight-day")
     -- vim.cmd("colorscheme rose-pine-dawn")
-    vim.cmd("colorscheme gruvbox-material")
+    -- vim.cmd("colorscheme gruvbox-material")
   else
     vim.o.background = "dark"
-    vim.cmd("colorscheme tokyonight-moon")
-    --   vim.cmd("colorscheme rose-pine-main")
+    -- vim.cmd("colorscheme tokyonight-moon")
+    -- vim.cmd("colorscheme rose-pine-moon")
   end
 end
