@@ -4,10 +4,11 @@ import os
 from kittens.tui.handler import result_handler
 
 # DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine.conf')
-# LIGHT_THEME = os.path.expanduser('~/.config/kitty/rose-pine-dawn.conf')
-DARK_THEME = os.path.expanduser('~/.config/kitty/tokyonight-moon.conf')
+DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine-moon.conf')
+LIGHT_THEME = os.path.expanduser('~/.config/kitty/rose-pine-dawn.conf')
+# DARK_THEME = os.path.expanduser('~/.config/kitty/tokyonight-moon.conf')
 # LIGHT_THEME = os.path.expanduser('~/.config/kitty/tokyonight-day.conf')
-LIGHT_THEME = os.path.expanduser('~/.config/kitty/gruvbox-material-light-medium.conf')
+# LIGHT_THEME = os.path.expanduser('~/.config/kitty/gruvbox-material-light-medium.conf')
 
 GLOBAL_THEME_FILE = os.path.expanduser('~/.current_theme')
 CURRENT_THEME_CONF = os.path.expanduser('~/.config/kitty/current-theme.conf')
