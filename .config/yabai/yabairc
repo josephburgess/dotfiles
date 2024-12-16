@@ -1,78 +1,78 @@
-#!/usr/bin/env sh
-
+##!/usr/bin/env sh
 #
-# for this to work you must configure sudo such that
-# it will be able to run the command without password
+##
+## for this to work you must configure sudo such that
+## it will be able to run the command without password
+##
+## see this wiki page for information:
+##  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+##
+#yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+#sudo yabai --load-sa
+#gapsize=20
+#margin=15
+## global settings
+#yabai -m config \
+#	mouse_follows_focus off \
+#	focus_follows_mouse off \
+#	window_origin_display default \
+#	window_placement second_child \
+#	window_zoom_persist on \
+#	window_topmost on \
+#	window_shadow on \
+#	window_animation_frame_rate 120 \
+#	window_opacity_duration 0.0 \
+#	active_window_opacity 1.0 \
+#	normal_window_opacity 1 \
+#	window_opacity on \
+#	insert_feedback_color 0xffd75f5f \
+#	active_window_border_color 0xffffffff \
+#	normal_window_border_color 0xff555555 \
+#	window_border_width 2 \
+#	window_border_radius 12 \
+#	window_border_blur off \
+#	window_border_hidpi on \
+#	window_border on \
+#	split_ratio 0.50 \
+#	split_type auto \
+#	auto_balance off \
+#	top_padding $margin \
+#	bottom_padding $margin \
+#	left_padding $margin \
+#	right_padding $margin \
+#	window_gap $gapsize \
+#	layout bsp \
+#	mouse_modifier fn \
+#	mouse_action1 move \
+#	mouse_action2 resize \
+#	mouse_drop_action swap \
+#	window_animation_duration 0.03 \
+#	window_animation_easing ease_out_quint \
+#	\
+#	insert_feedback_color 0xaa676767
+#yabai -m rule --add app='^System Information$' manage=off
+#yabai -m rule --add app='^System Preferences$' manage=off
+#yabai -m rule --add title='Preferences$' manage=off
+#yabai -m rule --add title='Settings$' manage=off
+#yabai -m rule --add app="^System Settings$" manage=off
+#yabai -m rule --add app="^Calculator$" manage=off
+#yabai -m rule --add app="^Karabiner-Elements$" manage=off
+#yabai -m rule --add app="CleanShot X" manage=off
+#yabai -m rule --add app="^Activity Monitor$" manage=off
+#yabai -m rule --add app="^Steam$" manage=off
 #
-# see this wiki page for information:
-#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+#yabai -m rule --add title='Settings$' manage=off
+#yabai -m rule --add title='Settings$' sticky=on
+#yabai -m rule --add title='Settings$' border=off
+#yabai -m rule --add title='Settings$' topmost=on
 #
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-sudo yabai --load-sa
-gapsize=20
-margin=15
-# global settings
-yabai -m config \
-	mouse_follows_focus off \
-	focus_follows_mouse off \
-	window_origin_display default \
-	window_placement second_child \
-	window_zoom_persist on \
-	window_topmost on \
-	window_shadow on \
-	window_animation_frame_rate 120 \
-	window_opacity_duration 0.0 \
-	active_window_opacity 1.0 \
-	normal_window_opacity 1 \
-	window_opacity on \
-	insert_feedback_color 0xffd75f5f \
-	active_window_border_color 0xffffffff \
-	normal_window_border_color 0xff555555 \
-	window_border_width 2 \
-	window_border_radius 12 \
-	window_border_blur off \
-	window_border_hidpi on \
-	window_border on \
-	split_ratio 0.50 \
-	split_type auto \
-	auto_balance off \
-	top_padding $margin \
-	bottom_padding $margin \
-	left_padding $margin \
-	right_padding $margin \
-	window_gap $gapsize \
-	layout bsp \
-	mouse_modifier fn \
-	mouse_action1 move \
-	mouse_action2 resize \
-	mouse_drop_action swap \
-	window_animation_duration 0.03 \
-	window_animation_easing ease_out_quint \
-	\
-	insert_feedback_color 0xaa676767
-yabai -m rule --add app='^System Information$' manage=off
-yabai -m rule --add app='^System Preferences$' manage=off
-yabai -m rule --add title='Preferences$' manage=off
-yabai -m rule --add title='Settings$' manage=off
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="CleanShot X" manage=off
-yabai -m rule --add app="^Activity Monitor$" manage=off
-yabai -m rule --add app="^Steam$" manage=off
-
-yabai -m rule --add title='Settings$' manage=off
-yabai -m rule --add title='Settings$' sticky=on
-yabai -m rule --add title='Settings$' border=off
-yabai -m rule --add title='Settings$' topmost=on
-
-# Disable animations when opening and closing windows.
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-
-# Accelerated playback when adjusting the window size.
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-# borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0 hidpi=on style=round
-borders \
-	"active_color=gradient(top_left=0xffffc640,bottom_right=0xffba3aa5)" \
-	"inactive_color=gradient(top_left=0xaa45c4c0,bottom_right=0xaaba3aa5)" \
-	width=2
+## Disable animations when opening and closing windows.
+#defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+#
+## Accelerated playback when adjusting the window size.
+#defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+## borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0 hidpi=on style=round
+#borders \
+#	"active_color=gradient(top_left=0xffffc640,bottom_right=0xffba3aa5)" \
+#	"inactive_color=gradient(top_left=0xaa45c4c0,bottom_right=0xaaba3aa5)" \
+#	width=2

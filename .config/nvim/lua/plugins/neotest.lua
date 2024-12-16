@@ -13,6 +13,16 @@ return {
           end,
         })
       )
+      opts.discovery = {
+        enabled = false,
+        concurrent = 1,
+      }
+      opts.running = {
+        concurrent = true,
+      }
+      opts.summary = {
+        animated = false,
+      }
     end,
   },
 }

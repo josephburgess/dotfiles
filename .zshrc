@@ -34,6 +34,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 zinit ice wait"1" lucid
 zinit light laggardkernel/zsh-thefuck
+zinit light darvid/zsh-poetry
 
 # Add in snippets
 zinit snippet OMZP::git
@@ -127,6 +128,10 @@ alias gh="EDITOR=nvim gh"
 alias d="lazydocker"
 alias snowsql="/Applications/SnowSQL.app/Contents/MacOS/snowsql"
 alias ksnv='NVIM_APPNAME="nvim-kickstart" nvim'
+alias lvim='NVIM_APPNAME="lvim" nvim'
+alias astart='nvm use 16 && npm start'
+alias crunserver='dcr --service-ports app python manage.py runserver 0.0.0.0:8000'
+alias cstatic='docker-compose up static'
 
 # Custom Functions
 killport() {
