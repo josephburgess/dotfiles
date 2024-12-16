@@ -55,6 +55,7 @@ Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_wor
 
 Map("n", "<Leader>ry", ":PythonCopyReferenceDotted<CR>", { desc = "Copy python ref" })
 
+Map("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>", { desc = "Oil current dir" })
 Map("n", "<leader>oi", function()
   require("oil").open()
 end, { desc = "Oil current dir" })
