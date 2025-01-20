@@ -8,7 +8,7 @@
   "languages": {
     "Python": {
       "language_servers": ["pyright"],
-      "preferred_line_length": 120
+      "preferred_line_length": 140
     }
   },
   "lsp": {
