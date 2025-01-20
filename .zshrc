@@ -224,6 +224,7 @@ export PATH="$PATH:$HOME"
 export PATH="$HOME/workspace/tools/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/zig-versions/zig-0.14.0-dev:$PATH"
+export PICO_SDK_PATH="$HOME/pico-sdk"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
