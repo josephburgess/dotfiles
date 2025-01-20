@@ -15,9 +15,6 @@ end
 -- Map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 -- Map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
--- Select all
-Map("n", "<C-a>", "gg<S-v>G")
-
 Map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 Map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 Map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
@@ -55,7 +52,11 @@ Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_wor
 
 Map("n", "<Leader>ry", ":PythonCopyReferenceDotted<CR>", { desc = "Copy python ref" })
 
-Map("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>", { desc = "Oil current dir" })
+Map("n", "<leader>e", function()
+  MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+  MiniFiles.reveal_cwd()
+end, { desc = "Oil current dir" })
+
 Map("n", "<leader>oi", function()
   require("oil").open()
 end, { desc = "Oil current dir" })
