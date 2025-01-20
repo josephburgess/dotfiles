@@ -132,6 +132,7 @@ alias lvim='NVIM_APPNAME="lvim" nvim'
 alias astart='nvm use 16 && npm start'
 alias crunserver='dcr --service-ports app python manage.py runserver 0.0.0.0:8000'
 alias cstatic='docker-compose up static'
+alias cat='bat --paging=never'
 
 # Custom Functions
 killport() {
