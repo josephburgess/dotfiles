@@ -7,6 +7,7 @@ promptToReturnFromSubprocess: false
 git:
   paging:
     colorArg: always
+    pager: delta --dark --paging=never
     #externalDiffCommand: difft --color=always --tab-width 2
 os:
   editPreset: nvim
