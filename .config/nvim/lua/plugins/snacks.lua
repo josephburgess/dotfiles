@@ -7,6 +7,15 @@ return {
   },
   ---@type snacks.Config
   opts = {
+    explorer = {},
+    picker = {
+      sources = {
+        explorer = {
+          -- your explorer picker configuration comes here
+          -- or leave it empty to use the default settings
+        },
+      },
+    },
     bigfile = { enabled = true },
     dashboard = {
       enabled = true,
@@ -205,6 +214,13 @@ return {
           },
         })
       end,
+    },
+    {
+      "<leader>e",
+      function()
+        Snacks.explorer()
+      end,
+      desc = "File Explorer",
     },
   },
   init = function()
