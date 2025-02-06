@@ -40,6 +40,7 @@ Map("i", "<D-BS>", "<C-o>d0", { desc = "Delete to beginning of line" })
 Map("n", "<C-Del>", "de", { desc = "Delete next word" })
 Map("n", "<M-BS>", "db", { desc = "Delete previous word" })
 
+Map("n", "<leader>cL", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
 Map({ "n", "t" }, "<C-h>", "<CMD>NavigatorLeft<CR>")
 Map({ "n", "t" }, "<C-l>", "<CMD>NavigatorRight<CR>")
 Map({ "n", "t" }, "<C-k>", "<CMD>NavigatorUp<CR>")
@@ -52,11 +53,11 @@ Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_wor
 
 Map("n", "<Leader>ry", ":PythonCopyReferenceDotted<CR>", { desc = "Copy python ref" })
 
-Map("n", "<leader>e", function()
-  MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-  MiniFiles.reveal_cwd()
-end, { desc = "Oil current dir" })
-
+-- Map("n", "<leader>e", function()
+--   MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+--   MiniFiles.reveal_cwd()
+-- end, { desc = "Oil current dir" })
+--
 Map("n", "<leader>oi", function()
   require("oil").open()
 end, { desc = "Oil current dir" })

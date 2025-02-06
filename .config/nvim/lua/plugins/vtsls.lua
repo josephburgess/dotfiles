@@ -7,9 +7,9 @@ return {
       vtsls = {
         enabled = true,
         root_dir = function(fname)
-          return require("lspconfig.util").find_git_ancestor(fname)
-            or require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname)
-            or vim.fn.getcwd() -- Fallback to current working directory
+          local util = require("lspconfig.util")
+          local root = util.root_pattern("jsconfig.json", "tsconfig.json", "package.json")(fname)
+          return root or util.find_git_ancestor(fname) or vim.fn.getcwd()
         end,
         settings = {
           typescript = {
