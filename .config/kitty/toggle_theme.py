@@ -3,8 +3,8 @@ from kitty.boss import Boss
 import os
 from kittens.tui.handler import result_handler
 
-# DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine.conf')
-DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine-moon.conf')
+DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine.conf')
+# DARK_THEME = os.path.expanduser('~/.config/kitty/rose-pine-moon.conf')
 LIGHT_THEME = os.path.expanduser('~/.config/kitty/rose-pine-dawn.conf')
 # DARK_THEME = os.path.expanduser('~/.config/kitty/tokyonight-moon.conf')
 # LIGHT_THEME = os.path.expanduser('~/.config/kitty/tokyonight-day.conf')
