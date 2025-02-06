@@ -169,5 +169,9 @@ if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 3'
