@@ -8,9 +8,10 @@ import {
 } from "karabiner.ts";
 
 writeToProfile("karabiner-config", [
-  rule("Caps Lock -> Hyper/Esc, Right ⌥ -> Meh, RCMD -> Hyper ").manipulators([
+  rule("Caps Lock -> Hyper/Esc, R⌥ / ⇥ -> Meh, ⌘ -> Hyper ").manipulators([
     map("caps_lock").toHyper().toIfAlone("escape"),
     map("right_option").toMeh(),
+    map("tab").toMeh().toIfAlone("tab"),
     map("right_command").toHyper(),
   ]),
 
@@ -21,15 +22,13 @@ writeToProfile("karabiner-config", [
     }),
   ]),
 
-  rule("Tab -> Meh").manipulators([map("tab").toMeh().toIfAlone("tab")]),
-
   rule("Avoid starting sysdiagnose with hyper").manipulators([
     map("comma", ["command", "shift", "option", "control"]).to([]),
     map("period", ["command", "shift", "option", "control"]).to([]),
     map("slash", ["command", "shift", "option", "control"]).to([]),
   ]),
 
-  rule("Command+Q override with double tap requirement").manipulators([
+  rule("Double-tap ⌘+Q to quit").manipulators([
     mapDoubleTap("q", "command").to("q", "command").singleTap(null),
   ]),
 ]);
