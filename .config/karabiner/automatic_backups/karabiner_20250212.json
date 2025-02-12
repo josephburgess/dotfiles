@@ -541,7 +541,7 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "Caps Lock -> Hyper/Esc, Right ⌥ -> Meh, RCMD -> Hyper ",
+            "description": "Caps Lock -> Hyper",
             "manipulators": [
               {
                 "type": "basic",
@@ -598,7 +598,7 @@
             ]
           },
           {
-            "description": "Hyper + A/D -> Tab left/right",
+            "description": "Hyper + A/D for Tab Navigation",
             "manipulators": [
               {
                 "type": "basic",
@@ -673,10 +673,10 @@
             ]
           },
           {
-            "description": "Avoid starting sysdiagnose with hyper",
+            "description": "Imported from /Users/josephburgess/.config/karabiner/assets/complex_modifications/1713770432.json",
             "manipulators": [
               {
-                "type": "basic",
+                "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+,",
                 "from": {
                   "key_code": "comma",
                   "modifiers": {
@@ -688,10 +688,11 @@
                     ]
                   }
                 },
-                "to": []
+                "to": [],
+                "type": "basic"
               },
               {
-                "type": "basic",
+                "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+.",
                 "from": {
                   "key_code": "period",
                   "modifiers": {
@@ -703,11 +704,12 @@
                     ]
                   }
                 },
-                "to": []
+                "to": [],
+                "type": "basic"
               },
               {
-                "type": "basic",
                 "from": {
+                  "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+/",
                   "key_code": "slash",
                   "modifiers": {
                     "mandatory": [
@@ -718,15 +720,17 @@
                     ]
                   }
                 },
-                "to": []
-              }
-            ]
-          },
-          {
-            "description": "Command+Q override with double tap requirement",
-            "manipulators": [
+                "to": [],
+                "type": "basic"
+              },
               {
-                "type": "basic",
+                "conditions": [
+                  {
+                    "name": "command-q",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
                 "from": {
                   "key_code": "q",
                   "modifiers": {
@@ -738,21 +742,12 @@
                 "to": [
                   {
                     "key_code": "q",
-                    "modifiers": [
-                      "command"
-                    ]
+                    "modifiers": "left_command"
                   }
                 ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "double-tap-q-command",
-                    "value": 1
-                  }
-                ]
+                "type": "basic"
               },
               {
-                "type": "basic",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
@@ -764,39 +759,73 @@
                 "to": [
                   {
                     "set_variable": {
-                      "name": "double-tap-q-command",
+                      "name": "command-q",
                       "value": 1
                     }
                   }
                 ],
-                "conditions": [
-                  {
-                    "type": "variable_unless",
-                    "name": "double-tap-q-command",
-                    "value": 1
-                  }
-                ],
                 "to_delayed_action": {
-                  "to_if_invoked": [
+                  "to_if_canceled": [
                     {
                       "set_variable": {
-                        "name": "double-tap-q-command",
+                        "name": "command-q",
                         "value": 0
                       }
                     }
                   ],
-                  "to_if_canceled": [
+                  "to_if_invoked": [
                     {
                       "set_variable": {
-                        "name": "double-tap-q-command",
+                        "name": "command-q",
                         "value": 0
                       }
                     }
                   ]
                 },
-                "parameters": {
-                  "basic.to_delayed_action_delay_milliseconds": 200
-                }
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Control",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "option",
+                      "control",
+                      "shift"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "apple_display_brightness_decrement"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "option",
+                      "control",
+                      "shift"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "apple_display_brightness_increment"
+                  }
+                ]
               }
             ]
           }
