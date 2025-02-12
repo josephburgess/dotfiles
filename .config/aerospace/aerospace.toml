@@ -118,12 +118,14 @@ alt-shift-ctrl-cmd-1 = 'workspace 1'
 alt-shift-ctrl-cmd-2 = 'workspace 2'
 alt-shift-ctrl-cmd-3 = 'workspace 3'
 alt-shift-ctrl-cmd-4 = 'workspace 4'
+alt-shift-ctrl-cmd-5 = 'workspace 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-ctrl-1 = 'move-node-to-workspace 1'
 alt-shift-ctrl-2 = 'move-node-to-workspace 2'
 alt-shift-ctrl-3 = 'move-node-to-workspace 3'
 alt-shift-ctrl-4 = 'move-node-to-workspace 4'
+alt-shift-ctrl-5 = 'move-node-to-workspace 5'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -157,6 +159,12 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 if.window-title-regex-substring = 'Picture-in-picture'
+run = 'layout floating'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+if.window-title-regex-substring = 'about:blank'
 run = 'layout floating'
 check-further-callbacks = true
 
