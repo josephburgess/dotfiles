@@ -541,7 +541,7 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "Caps Lock -> Hyper/Esc, Right ⌥ -> Meh, RCMD -> Hyper ",
+            "description": "Caps Lock -> Hyper/Esc, R⌥ / ⇥ -> Meh, ⌘ -> Hyper ",
             "manipulators": [
               {
                 "type": "basic",
@@ -576,6 +576,26 @@
                       "control",
                       "shift"
                     ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "left_option",
+                    "modifiers": [
+                      "control",
+                      "shift"
+                    ]
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "tab"
                   }
                 ]
               },
@@ -648,31 +668,6 @@
             ]
           },
           {
-            "description": "Tab -> Meh",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "tab"
-                },
-                "to": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "control",
-                      "shift"
-                    ]
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "tab"
-                  }
-                ]
-              }
-            ]
-          },
-          {
             "description": "Avoid starting sysdiagnose with hyper",
             "manipulators": [
               {
@@ -723,7 +718,7 @@
             ]
           },
           {
-            "description": "Command+Q override with double tap requirement",
+            "description": "Double-tap ⌘+Q to quit",
             "manipulators": [
               {
                 "type": "basic",
