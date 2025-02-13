@@ -8,10 +8,8 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
 vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
 vim.b.autoformat = false
-
-vim.diagnostic.config({
-  virtual_text = false,
-})
+vim.opt.fillchars = { eob = "~" }
+vim.diagnostic.config({ virtual_text = false })
 vim.opt.completeopt = "noselect"
 if vim.env.TERM == "xterm-256color" then
   vim.cmd([[autocmd UIEnter * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[>1u") | endif]])
