@@ -10,7 +10,41 @@ return {
     explorer = {},
     picker = {
       sources = {
-        explorer = {},
+        explorer = { hidden = true },
+        buffers = { hidden = true },
+        files = { hidden = true },
+        projects = {
+          projects = {
+            vim.fn.expand("~/dotfiles"),
+            vim.fn.expand("~/Funnel/Chuck/static/archer"),
+          },
+          recent = true,
+          dev = { "~/Funnel", "~/Projects" },
+          patterns = { ".git", "package.json", "Makefile" },
+          confirm = function(picker, item)
+            picker:close()
+            vim.cmd("cd " .. item.file)
+            Snacks.notify("Changed directory to: " .. item.file)
+          end,
+        },
+      },
+      layout = {
+        layout = {
+          box = "vertical",
+          backdrop = false,
+          row = -1,
+          width = 0,
+          height = 0.4,
+          border = "top",
+          title = " {title} {live} {flags}",
+          title_pos = "left",
+          { win = "input", height = 1, border = "bottom" },
+          {
+            box = "horizontal",
+            { win = "list", border = "none" },
+            { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+          },
+        },
       },
     },
     bigfile = { enabled = true },
