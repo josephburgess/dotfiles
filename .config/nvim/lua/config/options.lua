@@ -1,4 +1,3 @@
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.scrolloff = 10
 vim.opt.showmode = false
 vim.o.termguicolors = true
