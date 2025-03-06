@@ -8,7 +8,9 @@ local function Map(mode, lhs, rhs, opts)
   end
   vim.keymap.set(mode, lhs, rhs, options)
 end
-
+vim.keymap.set("n", "<Leader>cd", function()
+  require("zendiagram").open()
+end, { silent = true, desc = "Open diagnostics float" })
 -- General keymaps
 -- Map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 -- Map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
@@ -64,7 +66,7 @@ end, { desc = "Oil current dir" })
 Map("n", "<leader>of", function()
   require("oil").open_float(".")
 end, { desc = "Oil floating window" })
-
+vim.keymap.set("n", "<leader>on", "<CMD>Nvumi<CR>", { desc = "Open Nvumi" })
 ---@return table used in cmp.setup({})
 M.setup_cmp = function()
   local snippy_ok, snippy = pcall(require, "snippy")
