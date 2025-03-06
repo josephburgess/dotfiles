@@ -20,3 +20,5 @@
   line-numbers = true
 [merge]
 	conflictStyle = zdiff3
+[fetch]
+	prune = true

@@ -71,6 +71,9 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+# homebrew
+HOMEBREW_NO_ENV_HINTS=TRUE
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -133,6 +136,34 @@ alias astart='nvm use 16 && npm start'
 alias crunserver='dcr --service-ports app python manage.py runserver 0.0.0.0:8000'
 alias cstatic='docker-compose up static'
 alias cat='bat --paging=never'
+
+# Git Aliases for GitHub Flow
+alias gec='git config --global -e'
+alias gup='git pull --rebase --prune && git submodule update --init --recursive'
+alias gcob='git checkout -b'
+alias gcm='git add -A && git commit -m'
+alias gsave='git add -A && git commit -m "SAVEPOINT"'
+alias gwip='git add -u && git commit -m "WIP"'
+alias gundo='git reset HEAD~1 --mixed'
+alias gamend='git commit -a --amend'
+alias gwipe='git add -A && git commit -qm "WIPE SAVEPOINT" && git reset HEAD~1 --hard'
+
+function gdefault() {
+  git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"
+}
+alias gdefault="gdefault"
+
+function gbclean() {
+  local DEFAULT=$(gdefault)
+  git branch --merged "${1:-$DEFAULT}" | grep -v " ${1:-$DEFAULT}$" | xargs git branch -d
+}
+alias gbclean="gbclean"
+
+function gbdone() {
+  local DEFAULT=$(gdefault)
+  git checkout "${1:-$DEFAULT}" && gup && gbclean "${1:-$DEFAULT}"
+}
+alias gbdone="gbdone"
 
 # Custom Functions
 killport() {
@@ -226,6 +257,7 @@ export PATH="$HOME/workspace/tools/bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/zig-versions/zig-0.14.0-dev:$PATH"
 export PICO_SDK_PATH="$HOME/pico-sdk"
+export PATH=$PATH:$(go env GOPATH)/bin
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
