@@ -12,3 +12,4 @@ docker-compose.debug.yml
 .ropeproject
 .neoconf.json
 .aider*
+raycast/
