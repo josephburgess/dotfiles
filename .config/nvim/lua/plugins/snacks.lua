@@ -9,9 +9,37 @@ return {
   opts = {
     explorer = {},
     picker = {
+      formatters = {
+        file = {
+          truncate = 80,
+        },
+      },
       sources = {
-        explorer = { hidden = true },
-        buffers = { hidden = true },
+        explorer = {
+          hidden = true,
+          auto_close = true,
+          layout = {
+            layout = {
+              backdrop = false,
+              preview = false,
+              width = 40,
+              min_width = 40,
+              height = 0,
+              position = "left",
+              border = "none",
+              box = "vertical",
+              {
+                win = "input",
+                height = 1,
+                border = "rounded",
+                title = "{title} {live} {flags}",
+                title_pos = "center",
+              },
+              { win = "list", border = "none" },
+              { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+            },
+          },
+        },
         files = { hidden = true },
         projects = {
           projects = {
@@ -29,20 +57,60 @@ return {
         },
       },
       layout = {
+        -- default
+        -- layout = {
+        --   box = "horizontal",
+        --   width = 0.8,
+        --   min_width = 120,
+        --   height = 0.8,
+        --   {
+        --     box = "vertical",
+        --     border = "rounded",
+        --     title = "{title} {live} {flags}",
+        --     { win = "input", height = 1, border = "bottom" },
+        --     { win = "list", border = "none" },
+        --   },
+        --   { win = "preview", title = "{preview}", border = "rounded", width = 0.5 },
+        -- },
+
+        -- bottom half
+        -- layout = {
+        --   box = "vertical",
+        --   backdrop = false,
+        --   row = -1,
+        --   width = 0,
+        --   height = 0.5,
+        --   border = "top",
+        --   title = " {title} {live} {flags}",
+        --   title_pos = "left",
+        --   { win = "input", height = 1, border = "bottom" },
+        --   {
+        --     box = "horizontal",
+        --     { win = "list", border = "none" },
+        --     { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+        --   },
+        -- },
+        -- telescope
         layout = {
-          box = "vertical",
-          backdrop = false,
-          row = -1,
-          width = 0,
-          height = 0.4,
-          border = "top",
-          title = " {title} {live} {flags}",
-          title_pos = "left",
-          { win = "input", height = 1, border = "bottom" },
-          {
+          reverse = true,
+          layout = {
             box = "horizontal",
-            { win = "list", border = "none" },
-            { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+            backdrop = false,
+            width = 0.8,
+            height = 0.9,
+            border = "none",
+            {
+              box = "vertical",
+              { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+              { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+            },
+            {
+              win = "preview",
+              title = "{preview:Preview}",
+              width = 0.45,
+              border = "rounded",
+              title_pos = "center",
+            },
           },
         },
       },
@@ -78,11 +146,11 @@ return {
       sections = {
         { section = "header" },
         { section = "keys" },
-        { section = "startup" },
+        -- { section = "startup" },
       },
     },
     dim = { enabled = true },
-    animate = { enabled = false },
+    animate = { duration = 5 },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {

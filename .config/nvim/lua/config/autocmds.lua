@@ -48,26 +48,60 @@ end, {
   nargs = "+",
   complete = function(arg_lead, _, _)
     return vim.tbl_keys(package.loaded)
-    -- return vim.tbl_filter(function(mod_name) return string.find(mod_name, arg_lead, 1, true) end, vim.tbl_keys(package.loaded)) -- use this instead if you don't have a command completion plugin like nvim-cmp
   end,
   desc = "Clear cached lua modules and re-require them",
 })
 
--- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
---   group = vim.api.nvim_create_augroup("ZendiagramHover", { clear = true }),
---   callback = function()
---     local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
---
---     if #diagnostics > 0 then
---       if not zendiagram_open then
---         require("zendiagram").open()
---         zendiagram_open = true
---       end
---     else
---       if zendiagram_open then
---         require("zendiagram").close()
---         zendiagram_open = false
---       end
---     end
---   end,
--- })
+local float_diagnostic_group_id = nil
+
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
+local function setup_float_diagnostics()
+  float_diagnostic_group_id = vim.api.nvim_create_augroup("float_diagnostic", { clear = true })
+  vim.api.nvim_create_autocmd("CursorHold", {
+    group = float_diagnostic_group_id,
+    callback = function()
+      local options = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = "rounded",
+        source = "always",
+        prefix = "●",
+        scope = "cursor",
+      }
+      vim.diagnostic.open_float(nil, options)
+    end,
+  })
+end
+
+setup_float_diagnostics()
+
+local function toggle_diagnostic_display()
+  local current = vim.diagnostic.config().virtual_text
+
+  if current then
+    vim.diagnostic.config({ virtual_text = false })
+    setup_float_diagnostics()
+    vim.notify("Diagnostics: floating (on hover)", vim.log.levels.INFO)
+  else
+    vim.diagnostic.config({
+      virtual_text = {
+        prefix = "●",
+        spacing = 4,
+      },
+    })
+
+    if float_diagnostic_group_id then
+      vim.api.nvim_del_augroup_by_id(float_diagnostic_group_id)
+      float_diagnostic_group_id = nil
+    end
+    vim.notify("Diagnostics: inline (virtual text)", vim.log.levels.INFO)
+  end
+end
+
+-- toggle func
+vim.api.nvim_create_user_command("ToggleDiagnosticDisplay", function()
+  toggle_diagnostic_display()
+end, { desc = "Toggle between floating and inline diagnostics" })

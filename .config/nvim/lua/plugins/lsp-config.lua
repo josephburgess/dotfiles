@@ -1,15 +1,33 @@
 return {
   { "folke/neoconf.nvim", opts = {} },
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- Only load on Lua files
+    opts = {
+      library = {
+        -- Include LazyVim types
+        "LazyVim",
+        -- Include Neovim runtime files for proper API completion
+        vim.env.VIMRUNTIME,
+        vim.fn.stdpath("config"),
+        vim.fn.stdpath("data") .. "/site/pack/packer/start/",
+      },
+      enabled = function(root_dir)
+        -- Disable if a `.luarc.json` is present
+        return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+      end,
+    },
+  },
+
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      -- Ensure opts is initialized if not provided
       opts = opts or {}
       opts.servers = opts.servers or {}
       opts.autoformat = false
 
       opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics or {}, {
-        virtual_text = false,
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
@@ -26,46 +44,34 @@ return {
           border = "rounded",
         },
       })
-
-      -- opts.servers.pylsp = {
-      --   settings = {
-      --     pylsp = {
-      --       configurationSources = { "flake8" },
-      --       plugins = {
-      --         pycodestyle = { enabled = false },
-      --         mccabe = { enabled = false },
-      --         pyflakes = { enabled = false },
-      --         flake8 = { enabled = true, maxLineLength = 120 },
-      --       },
-      --     },
-      --   },
-      -- }
-
-      opts.servers.zls = {}
-      opts.servers.basedpyright = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = "workspace",
-          useLibraryCodeForTypes = true,
+      opts.servers.lua_ls = {
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = { enable = false },
+            diagnostics = {
+              globals = { "vim" },
+              disable = {
+                "lowercase-global",
+                "undefined-field",
+                "undefined-global",
+                "assign-type-mismatch",
+                "missing-fields",
+              },
+            },
+          },
         },
       }
+
       opts.inlay_hints = { enabled = false }
 
-      vim.api.nvim_create_autocmd("CursorHold", {
-        group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
-        callback = function()
-          local options = {
-            focusable = false,
-            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-            border = "rounded",
-            source = "always",
-            prefix = " ",
-            scope = "cursor",
-          }
-          vim.diagnostic.open_float(nil, options)
-        end,
-      })
-
+      -- Ensure LSP starts
       vim.schedule(function()
         vim.cmd("LspStart")
       end)

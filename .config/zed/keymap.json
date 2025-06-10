@@ -1,0 +1,74 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "space space": "file_finder::Toggle",
+      "space ,": "tab_switcher::Toggle",
+      "space /": "project_search::ToggleFocus",
+      "space .": "terminal_panel::ToggleFocus",
+      "space fb": "tab_switcher::Toggle",
+      "space ff": "file_finder::Toggle",
+      "space fr": "file_finder::Toggle",
+      "space sg": "project_search::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      "space -": "pane::SplitDown",
+      "space |": "pane::SplitRight",
+      "space wd": "pane::CloseActiveItem",
+      "space ca": "editor::ToggleCodeActions",
+      "space cd": "outline::Toggle",
+      "space cf": "editor::Format",
+      "space e": ["workspace::ToggleLeftDock", "Normal"],
+      "space ft": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::SwitchToNormalMode",
+      "j k": "vim::SwitchToNormalMode",
+      "ctrl-s": "workspace::Save"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "space e": ["workspace::ToggleLeftDock", "Normal"],
+      "[ d": "editor::GoToPreviousDiagnostic",
+      "] d": "editor::GoToDiagnostic",
+      "g d": "editor::GoToDefinition",
+      "g r": "editor::FindAllReferences",
+      "K": "editor::Hover",
+      "space cr": "editor::Rename",
+      "space ca": "editor::ToggleCodeActions",
+      "space cc": "editor::ShowCompletions",
+      "ctrl-s": "workspace::Save"
+    }
+  },
+  {
+    "context": "LeftDock && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "space e": ["workspace::ToggleLeftDock", "Normal"],
+      "q": ["workspace::ToggleLeftDock", "Normal"]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "escape": "terminal_panel::ToggleFocus"
+    }
+  }
+]

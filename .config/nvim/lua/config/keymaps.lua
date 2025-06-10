@@ -48,12 +48,37 @@ Map({ "n", "t" }, "<C-l>", "<CMD>NavigatorRight<CR>")
 Map({ "n", "t" }, "<C-k>", "<CMD>NavigatorUp<CR>")
 Map({ "n", "t" }, "<C-j>", "<CMD>NavigatorDown<CR>")
 Map({ "n", "t" }, "<C-p>", "<CMD>NavigatorPrevious<CR>")
-
+Map("n", "<leader>uH", "<cmd>ToggleDiagnosticDisplay<cr>", { desc = "Toggle Diagnostic Display" })
 Map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
   desc = "Search on current file",
 })
 
 Map("n", "<Leader>ry", ":PythonCopyReferenceDotted<CR>", { desc = "Copy python ref" })
+
+local function get_primary_branch()
+  -- Try to get the primary branch from git
+  local handle = io.popen("git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null")
+  if not handle then
+    return "master"
+  end
+
+  local result = handle:read("*a")
+  handle:close()
+
+  -- Extract branch name (refs/remotes/origin/main -> main)
+  local branch = result:match("refs/remotes/origin/([%w-]+)")
+
+  -- Default to master if we couldn't determine
+  return branch or "master"
+end
+
+Map("n", "<leader>ge", function()
+  local branch = get_primary_branch()
+  vim.cmd("DiffviewOpen origin/" .. branch .. "...HEAD")
+end, { desc = "Diff with origin/master|main" })
+
+Map("n", "<leader>gD", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
+Map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
 
 -- Map("n", "<leader>e", function()
 --   MiniFiles.open(vim.api.nvim_buf_get_name(0), false)

@@ -11,3 +11,4 @@ docker-compose.debug.yml
 **/jsconfig.json
 .ropeproject
 .neoconf.json
+.aider*

@@ -2,20 +2,11 @@ return {
   "mikesmithgh/kitty-scrollback.nvim",
   enabled = true,
   lazy = true,
-  cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth", "KittyScrollbackGenerateCommandLineEditing" },
   event = { "User KittyScrollbackLaunch" },
-  version = "*", -- latest stable version, may have breaking changes if major version changed
-  -- version = '^5.0.0', -- pin major version, include fixes and features that do not have breaking changes
+  -- version = '*', -- latest stable version, may have breaking changes if major version changed
+  -- version = '^6.0.0', -- pin major version, include fixes and features that do not have breaking changes
   config = function()
-    require("kitty-scrollback").setup({
-      search = {
-        callbacks = {
-          after_ready = function()
-            vim.api.nvim_feedkeys("?", "n", false)
-          end,
-        },
-      },
-      vim.keymap.set({ "n" }, "q", "<Plug>(KsbCloseOrQuitAll)", {}),
-    })
+    require("kitty-scrollback").setup()
   end,
 }
