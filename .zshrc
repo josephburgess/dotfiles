@@ -5,10 +5,10 @@ fi
 export TERM="xterm-256color"
 [[ -n $TMUX ]] && export TERM="screen-256color"
 
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+# [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+# if [[ -f "/opt/homebrew/bin/brew" ]] then
+#   eval "$(/opt/homebrew/bin/brew shellenv)"
+# fi
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -258,9 +258,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/zig-versions/zig-0.14.0-dev:$PATH"
 export PICO_SDK_PATH="$HOME/pico-sdk"
 export PATH=$PATH:$(go env GOPATH)/bin
+export CPLUS_INCLUDE_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
 source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
@@ -274,3 +276,10 @@ fi
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
+
+# bun completions
+[ -s "/Users/josephburgess/.bun/_bun" ] && source "/Users/josephburgess/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

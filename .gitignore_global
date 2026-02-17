@@ -1,4 +1,6 @@
 .vscode
+.env
+.nvmrc
 .graphqlrc.yml
 src/addOrg.ts
 .style.yapf
@@ -13,3 +15,5 @@ docker-compose.debug.yml
 .neoconf.json
 .aider*
 raycast/
+.local-aws.env
+.editorconfig
