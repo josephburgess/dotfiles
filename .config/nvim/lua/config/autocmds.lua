@@ -105,3 +105,12 @@ end
 vim.api.nvim_create_user_command("ToggleDiagnosticDisplay", function()
   toggle_diagnostic_display()
 end, { desc = "Toggle between floating and inline diagnostics" })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local save_cursor = vim.fn.getpos(".")
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setpos(".", save_cursor)
+  end,
+})
